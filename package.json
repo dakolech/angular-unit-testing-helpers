@@ -5,7 +5,7 @@
   "main": "test-helpers.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "test-travis": "./node_modules/karma/bin/karma start --single-run --browsers=Chrome,Firefox,PhantomJS"
+    "test-travis": "./node_modules/karma/bin/karma start --single-run --browsers=Chrome_travis_ci,Firefox,PhantomJS"
   },
   "repository": {
     "type": "git",
