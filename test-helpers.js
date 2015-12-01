@@ -31,7 +31,7 @@ window.TestServ.prototype = {
 
 
 
-window.TestElement = function(name) {
+window.TestElement = function() {
   var _this = this;
   inject(function($rootScope, $compile, $timeout, $controller, $templateCache) {
     _this._$scope = $rootScope.$new();
@@ -41,25 +41,13 @@ window.TestElement = function(name) {
     _this.$controller = $controller;
     _this.$templateCache = $templateCache;
   });
-  _this.name = name;
 };
 
 window.TestElement.prototype = {
-  createDirective: function(html, scope) {
-    var elem = angular.element(html);
-    this._$scope = angular.extend(this.$originalScope, scope);
-    this._el = this.$compile(elem)(this._$scope);
-    this._$scope.$digest();
-
-    try {
-      this.$timeout.verifyNoPendingTasks();
-    } catch (e) {
-      this.$timeout.flush();
-    }
-    return this._el;
-  },
-
   createCtrl: function(name, services) {
+    if (!services) {
+      services = {};
+    }
     services.$scope = this._$scope;
     this._ctrl = this.$controller(name, services);
     return this._ctrl;
@@ -83,6 +71,20 @@ window.TestElement.prototype = {
       this.$timeout.flush();
     }
 
+    return this._el;
+  },
+
+  createDirective: function(html, scope) {
+    var elem = angular.element(html);
+    this._$scope = angular.extend(this.$originalScope, scope);
+    this._el = this.$compile(elem)(this._$scope);
+    this._$scope.$digest();
+
+    try {
+      this.$timeout.verifyNoPendingTasks();
+    } catch (e) {
+      this.$timeout.flush();
+    }
     return this._el;
   },
 
