@@ -1,0 +1,27 @@
+{
+  "name": "angular-unit-testing-helpers",
+  "version": "0.0.1",
+  "description": "A collection of helper functions for writing AngularJS unit tests.",
+  "main": "test-helpers.js",
+  "scripts": {
+    "test": "karma start "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dakolech/angular-unit-testing-helpers.git"
+  },
+  "keywords": [
+    "angularJS",
+    "angular",
+    "unit",
+    "testing",
+    "test",
+    "helpers"
+  ],
+  "author": "Daniel Koza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dakolech/angular-unit-testing-helpers/issues"
+  },
+  "homepage": "https://github.com/dakolech/angular-unit-testing-helpers#readme"
+}
