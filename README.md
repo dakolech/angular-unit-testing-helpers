@@ -29,6 +29,12 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   npm install angular-unit-testing-helpers
   ```
 
+  or
+
+  ```
+  bower install angular-unit-testing-helpers
+  ```
+
   1. Inject it to `karma.conf.js`
 
   ```javascript
@@ -38,8 +44,13 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   ],
   ```
 
-
-# Services
+  or
+  ```javascript
+  files: [
+    'bower_components/angular-unit-testing-helpers/test-helpers.js',
+    ...
+  ],
+  ```
 
 ## TestServ documentation
 
@@ -123,5 +134,53 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
 ## TestServ examples
 
   [TestServ examples](test/examples/TestServ)
+
+## TestElement documentation
+
+### TestElement contructor:
+
+  ```javascript
+  new TestElement()
+  ```
+
+  It will create an object, which will contain some angular services: `$rootScope`, `$compile`, `$timeout`, `$controller`, `$templateCache`;
+
+  Implementation:
+
+  ```javascript
+  window.TestElement = function(name) {
+    var _this = this;
+    inject(function($rootScope, $compile, $timeout, $controller, $templateCache) {
+      _this._$scope = $rootScope.$new();
+      _this.$originalScope = $rootScope.$new();
+      _this.$compile = $compile;
+      _this.$timeout = $timeout;
+      _this.$controller = $controller;
+      _this.$templateCache = $templateCache;
+    });
+    _this.name = name;
+  };
+  ```
+
+### addMethod:
+
+  ```javascript
+  var someService = new TestServ()
+  TestServ.addMethod(name, returnedValue);
+  ```
+
+  `addMethod` will add an empty function to the someService at `name` value and also create spyOn on this created method. spyOn will return `returnedValue`.
+  `returnedValue` can be undefined or a value or an object or a function.
+
+  Implementation:
+
+  ```javascript
+  addMethod: function(name, returnedValue) {
+    this[name] = function() {};
+
+    spyOn(this, name).and.returnValue(
+      typeof returnedValue === "function" ? returnedValue() : returnedValue);
+  }
+  ```
 
 **[Back to top](#table-of-contents)**
