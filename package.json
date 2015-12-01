@@ -4,7 +4,7 @@
   "description": "A collection of helper functions for writing AngularJS unit tests.",
   "main": "test-helpers.js",
   "scripts": {
-    "test": "karma start "
+    "test": "./node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,13 @@
   "bugs": {
     "url": "https://github.com/dakolech/angular-unit-testing-helpers/issues"
   },
-  "homepage": "https://github.com/dakolech/angular-unit-testing-helpers#readme"
+  "homepage": "https://github.com/dakolech/angular-unit-testing-helpers#readme",
+  "devDependencies": {
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs2-launcher": "^0.3.2"
+  }
 }
