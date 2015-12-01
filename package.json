@@ -4,7 +4,8 @@
   "description": "A collection of helper functions for writing AngularJS unit tests.",
   "main": "test-helpers.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "./node_modules/karma/bin/karma start",
+    "test-travis": "./node_modules/karma/bin/karma start --single-run --browsers=Chrome,Firefox,PhantomJS"
   },
   "repository": {
     "type": "git",

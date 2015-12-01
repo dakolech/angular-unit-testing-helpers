@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '0.10'
+  - '0.11'
+  - '0.12'
+  - '4'
+  - '5'
+script:
+  -  npm run-script test-travis
+before_script:
+  - npm install
+notifications:
+  email:
+  - secure: "D4GVFSNWWGdInTmFYz2FtY7VT4cUiOdyfuO1fhaKELjwBoqevGgUN0t3G1gMOwt2q+B+FyYgbW59GGtIhfzjY4PGNOAHN4EKuVOLus9Wiq4cQqMJddt+nvf2f5sEnCAfWjN8VWwf819iTFpZPR9ri07i64Uo3G3GcrD29J96+Fa99pt8esBYcExJXkLev1mKUA+7r+KHlVYiO4MzxVhu24WyeSyz2qWnzUkdo06uTc6qTiDuKm9s1xiYAhDvNWGHRImR4tuYnXyCtD6kkj5CpSbXIoKxETSdp7iCLT0U5V21uGvJyuOEqrU2dHiT0yCVI/mLb96IfJaRRiEQL+RL7arntvSDtRMsvpsQSRw6RWb6Gir7zUCmQVIC7vtcQmtZvi6cmtG37OxQ6GQRDF0kbbfn9os7Jpzuo2LKMbQLIvwzMm/E3ihTzG78X6H9IGCaOiguR2cAm2oUSFroz+HwrTUEN5PULv3VrL1j0CcJHstsY1Dahma2RlIBaPIKUbo6aW99HzxTfPbbD1i4xNv2f4eVDhjL+UKUIEAcpieAHFCTv6yOhHsAyaVkXYlW2VfIjGt/PYR4wq/EG6RR0psSNnWsiuddsRgdSwKORfb2IOqw9Vyouu+sI0lp5cVnq9DR53x/0YDCb/OwNu5u/qbhrQHfPORvSvlCAqmAo96uwLo="
