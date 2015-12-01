@@ -102,6 +102,6 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
 
 ## TestServ examples
 
-  https://github.com/dakolech/angular-unit-testing-helpers/test/examples/TestServ
+  [TestServ examples](test/examples/TestServ/README.md)
 
 **[Back to top](#table-of-contents)**
