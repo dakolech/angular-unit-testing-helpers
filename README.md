@@ -6,12 +6,17 @@
 
   - [Why?](#why)
   - [Installation](#installation)
-  - [Services](#services)
-    - [TestServ documentation](#testserv-documentation)
-      - [Contructor](#contructor)
-    - [TestServ examples](#testserv-examples)
-  - [Controllers](#controllers)
-  - [Directives](#directivs)
+  - [TestServ documentation](#testserv-documentation)
+    - [TestServ contructor](#testserv-contructor)
+    - [addMethod](#addmethod)
+    - [addPromise](#addpromise)
+  - [TestServ examples](#testserv-examples)
+  - [TestElement documentation](#testelement-documentation)
+    - [TestElement contructor](#testelement-contructor)
+    - [createDirective](#createdirective)
+    - [createCtrl](#createctrl)
+    - [addTemplate](#addtemplate)
+  - [TestElement examples](#testelement-examples)
 
 ## Why?
 I've created this package to simplify unit testing in AngularJS apps. I had enough of writing repeated code. For every spec (controller, directive, service) I had to write the same injector and compile blocks of code, for every mocked service I had to write the same lines. With this package everything becomes a easier and faster.
@@ -38,7 +43,7 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
 
 ## TestServ documentation
 
-### Contructor:
+### TestServ contructor:
 
   Without an argument:
 
@@ -56,9 +61,23 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
 
   It will return real `$q` service;
 
+  Implementation:
+
+  ```javascript
+  window.TestServ = function(name) {
+    var _this = this;
+    if (!!name) {
+      inject([name, function(service) {
+        _this = service;
+      }]);
+      return _this;
+    }
+  };
+  ```
+
 ### addMethod:
 
-    ```javascript
+  ```javascript
   var someService = new TestServ()
   TestServ.addMethod(name, returnedValue);
   ```
@@ -67,7 +86,8 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   `returnedValue` can be undefined or a value or an object or a function.
 
   Implementation:
-    ```javascript
+
+  ```javascript
   addMethod: function(name, returnedValue) {
     this[name] = function() {};
 
