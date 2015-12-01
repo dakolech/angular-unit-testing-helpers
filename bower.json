@@ -1,0 +1,28 @@
+{
+  "name": "angular-unit-testing-helpers",
+  "description": "A collection of helper functions for writing AngularJS unit tests.",
+  "main": "test-helpers.js",
+  "authors": [
+    "Daniel Koza"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angularJS",
+    "angular",
+    "unit",
+    "testing",
+    "test",
+    "helpers"
+  ],
+  "homepage": "https://github.com/dakolech/angular-unit-testing-helpers",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
