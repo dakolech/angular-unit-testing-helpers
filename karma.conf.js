@@ -18,7 +18,9 @@ module.exports = function(config) {
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'test-helpers.js',
-      'test/**/*.js'
+      'test/**/*.js',
+      'examples/**/*.js',
+      'examples/**/*.html'
     ],
 
 
@@ -30,6 +32,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'examples/**/*.html': ['ng-html2js']
     },
 
 
@@ -76,5 +79,9 @@ module.exports = function(config) {
         flags: ['--no-sandbox']
       }
     },
+
+    ngHtml2JsPreprocessor: {
+      moduleName: 'templates'
+    }
   })
 }
