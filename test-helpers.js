@@ -48,7 +48,9 @@ window.TestElement.prototype = {
     if (!services) {
       services = {};
     }
-    services.$scope = this._$scope;
+    if (!services.$scope) {
+      services.$scope = this._$scope;
+    }
     this._ctrl = this.$controller(name, services);
     return this._ctrl;
   },
@@ -106,10 +108,10 @@ window.TestElement.prototype = {
   },
 
   clickOn: function(selector) {
-    if (this.dom.find(selector)[0]) {
-      this.dom.find(selector).click();
+    if (this.dom.querySelector(selector)) {
+      this.dom.querySelector(selector).click();
     } else {
-      $(selector).click();
+      document.querySelector(selector).click();
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
@@ -138,3 +140,23 @@ window.TestElement.prototype = {
     };
   },
 }
+
+  // clickOn: function(selector) {
+  //   if (this.dom.querySelector(selector)) {
+  //     this.dom.querySelector(selector).click();
+  //   } else {
+  //     document.querySelector(selector).click();
+  //   }
+  //   this._$scope.$digest();
+  //   return this._getFlushedThenable();
+  // },
+
+  // inputOn: function(selector, value) {
+  //   if (this.dom.querySelector(selector)) {
+  //     this.dom.querySelector(selector).value = value || '';
+  //   } else {
+  //     document.querySelector(selector).value = value || '';
+  //   }
+  //   this._$scope.$digest();
+  //   return this._getFlushedThenable();
+  // },

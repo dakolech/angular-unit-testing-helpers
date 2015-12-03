@@ -13,9 +13,14 @@
   - [TestServ examples](#testserv-examples)
   - [TestElement documentation](#testelement-documentation)
     - [TestElement contructor](#testelement-contructor)
-    - [createDirective](#createdirective)
     - [createCtrl](#createctrl)
     - [addTemplate](#addtemplate)
+    - [createDirective](#createdirective)
+    - [get scope](#get-scope)
+    - [get ctrl](#get-ctrl)
+    - [get dom](#get-dom)
+    - [clickOn](#clickon)
+    - [inputOn](#inputon)
   - [TestElement examples](#testelement-examples)
 
 ## Why?
@@ -52,6 +57,8 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   ],
   ```
 
+**[Back to top](#table-of-contents)**
+
 ## TestServ documentation
 
 ### TestServ contructor:
@@ -67,7 +74,7 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   With an argument:
 
   ```javascript
-  new TestServ('$q')
+  new TestServ('$q');
   ```
 
   It will return real `$q` service;
@@ -86,10 +93,12 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   };
   ```
 
+**[Back to top](#table-of-contents)**
+
 ### addMethod:
 
   ```javascript
-  var someService = new TestServ()
+  var someService = new TestServ();
   TestServ.addMethod(name, returnedValue);
   ```
 
@@ -107,10 +116,12 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   }
   ```
 
+**[Back to top](#table-of-contents)**
+
 ### addPromise:
 
   ```javascript
-  var someService = new TestServ()
+  var someService = new TestServ();
   TestServ.addPromise(name);
   ```
 
@@ -131,16 +142,18 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   }
   ```
 
+**[Back to top](#table-of-contents)**
+
 ## TestServ examples
 
-  [TestServ examples](test/examples/TestServ)
+  [TestServ examples](examples/TestServ)
 
 ## TestElement documentation
 
 ### TestElement contructor:
 
   ```javascript
-  new TestElement()
+  new TestElement();
   ```
 
   It will create an object, which will contain some angular services: `$rootScope`, `$compile`, `$timeout`, `$controller`, `$templateCache`;
@@ -162,25 +175,196 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   };
   ```
 
-### addMethod:
+**[Back to top](#table-of-contents)**
+
+### createCtrl:
 
   ```javascript
-  var someService = new TestServ()
-  TestServ.addMethod(name, returnedValue);
+  var element, someController, services = {
+    someSrevice: mockedSomeService
+  };
+  element = new TestElement();
+  someController = element.createCtrl(name, services);
   ```
 
-  `addMethod` will add an empty function to the someService at `name` value and also create spyOn on this created method. spyOn will return `returnedValue`.
-  `returnedValue` can be undefined or a value or an object or a function.
+  `createCtrl` will create and return a controller with 'name' and services object. You don't need to inject `$scope` into `services` method, it's injected by default if services.$scope doesn't exists.
 
   Implementation:
 
   ```javascript
-  addMethod: function(name, returnedValue) {
-    this[name] = function() {};
-
-    spyOn(this, name).and.returnValue(
-      typeof returnedValue === "function" ? returnedValue() : returnedValue);
+  createCtrl: function(name, services) {
+    if (!services) {
+      services = {};
+    }
+    if (!services.$scope) {
+      services.$scope = this._$scope;
+    }
+    this._ctrl = this.$controller(name, services);
+    return this._ctrl;
   }
   ```
 
 **[Back to top](#table-of-contents)**
+
+### addTemplate:
+
+  ```javascript
+  var element;
+  element = new TestElement();
+  element.createCtrl(name);
+  element.addTemplate(path, ctrlAs);
+  ```
+
+  `addTemplate` will create and return an angular element with current $scope. `path` is a path to the template that is stored in $templateCache. ctrlAs is an optional argument. If you are using `controllerAs` syntax, then `ctrlAs` should be the value of `controllerAs` property.
+
+  Implementation:
+
+  ```javascript
+  addTemplate: function(path, ctrlAs) {
+    var template;
+    template = this.$templateCache.get(path);
+    this._el = angular.element(template);
+
+    if (!!ctrlAs) {
+      this._$scope[ctrlAs] = this._ctrl;
+    }
+
+    this.$compile(this._el)(this._$scope);
+    this._$scope.$digest();
+
+    try {
+      this.$timeout.verifyNoPendingTasks();
+    } catch (e) {
+      this.$timeout.flush();
+    }
+
+    return this._el;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### createDirective:
+
+  ```javascript
+  var element;
+  element = new TestElement();
+  element.createDirective(html, scope);
+  ```
+
+  `createDirective` will create and return an angular element with with `html` and `scope`. `html` is a string and `scope` is an object, e. g.: `html = '<some-directive attribute="someValue"></some-directive>'; scope = { someValue: 123 };`.
+
+  Implementation:
+
+  ```javascript
+  createDirective: function(html, scope) {
+    var elem = angular.element(html);
+    this._$scope = angular.extend(this.$originalScope, scope);
+    this._el = this.$compile(elem)(this._$scope);
+    this._$scope.$digest();
+
+    try {
+      this.$timeout.verifyNoPendingTasks();
+    } catch (e) {
+      this.$timeout.flush();
+    }
+    return this._el;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### get scope:
+
+  ```javascript
+  element.scope
+  ```
+
+  `scope` will return current scope of the element.
+
+  Implementation:
+
+  ```javascript
+  get scope() {
+    return this._$scope;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### get ctrl:
+
+  ```javascript
+  element.ctrl
+  ```
+
+  `ctrl` will return controller created with `createCtrl` method or controller created with `createDirective` method.
+
+  Implementation:
+
+  ```javascript
+  get ctrl() {
+    return this._ctrl ? this._ctrl : angular.element(this._el).controller(this.name);
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### get dom:
+
+  ```javascript
+  element.dom
+  ```
+
+  `dom` will return current angular element of the template created with `addTemplate` or the directive created with `createDirective`.
+
+  Implementation:
+
+  ```javascript
+  get dom() {
+    return angular.element(this._el);
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+
+### get clickOn:
+
+  ```javascript
+  element.clickOn(selector);
+  ```
+
+  `clickOn` will click on element found with `selector`. It returns a promise.
+
+  Implementation:
+
+  ```javascript
+  clickOn: function(selector) {
+
+  ```
+
+**[Back to top](#table-of-contents)**
+
+
+### get dom:
+
+  ```javascript
+  element.inputOn(selector, value);
+  ```
+
+  `inputOn` will set value of the element found with `selector`. It returns a promise.
+
+  Implementation:
+
+  ```javascript
+  inputOn: function(selector, value) {
+
+  ```
+
+**[Back to top](#table-of-contents)**
+
+
+## TestServ examples
+
+  [TestServ examples](examples/TestElement)

@@ -1,0 +1,8 @@
+<div>
+  <div ng-repeat="item in vm.someArray">
+    <span ng-bind="item.name"></span>
+  </div>
+
+  <input type="text" ng-model="vm.newItem">
+  <button class="button" ng-click="vm.addToArray(vm.newItem)"></button>
+</div>
