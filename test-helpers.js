@@ -115,6 +115,7 @@ window.TestElement.prototype = {
   destroy: function() {
     this._$scope.$destroy();
     this._el = null;
+    this._ctrl = null;
   },
 
   clickOn: function(selector) {
