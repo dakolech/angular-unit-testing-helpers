@@ -70,9 +70,8 @@ describe('templateController', function() {
     it('should add new element to array', function() {
       expect(element.find('span').length).toBe(4);
       expect(element.html()).toContain(newVal);
+      expect(templateController.someArray[3].id).toBe(4);
     });
-
   });
-
 });
 
