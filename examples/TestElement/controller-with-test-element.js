@@ -11,7 +11,7 @@ function someController(SomeService, Alerts) {
 someController.$inject = ['SomeService', 'Alerts'];
 
 angular
-.module('someApp', [])
+.module('ctrlWithTE', [])
 .controller('someController', someController);
 
 
@@ -28,7 +28,7 @@ describe('someController', function() {
     successCallback,
     failCallback;
 
-  beforeEach(module('someApp'));
+  beforeEach(module('ctrlWithTE'));
 
   beforeEach(function() {
     //mocking promise

@@ -1,5 +1,7 @@
-function templateController($scope) {
-  $scope.someArray = [{
+function templateController() {
+  var _this = this;
+
+  _this.someArray = [{
     id: 1,
     name: 'Name1'
   }, {
@@ -10,18 +12,17 @@ function templateController($scope) {
     name: 'Name3'
   }];
 
-  $scope.addToArray = function(name) {
+  _this.addToArray = function(name) {
     var item = {};
-    item.id = $scope.someArray.length + 1;
+    item.id = _this.someArray.length + 1;
     item.name = name;
-    $scope.someArray.push(item);
+    _this.someArray.push(item);
   };
 }
 
-templateController.$inject = ['$scope'];
 
 angular
-.module('ctrlTemplateWithoutTE', [])
+.module('ctrlAsTemplateWithoutTE', [])
 .controller('templateController', templateController);
 
 
@@ -29,7 +30,7 @@ describe('templateController', function() {
   var
     templateController, template, element, $controller, $compile, $rootScope, $scope;
 
-  beforeEach(module('ctrlTemplateWithoutTE'));
+  beforeEach(module('ctrlAsTemplateWithoutTE'));
   beforeEach(module('templates'));
 
   beforeEach(function() {
@@ -37,19 +38,20 @@ describe('templateController', function() {
       $rootScope = _$rootScope_;
       $controller = _$controller_;
       $compile = _$compile_;
-      template = $templateCache.get('examples/TestElement/template.html');
+      template = $templateCache.get('examples/TestElement/templateAs.html');
     });
     $scope = $rootScope.$new();
     templateController = $controller('templateController', {
       $scope: $scope,
     });
+    $scope.vm = templateController;
     element = angular.element(template);
     $compile(element)($scope);
     $scope.$digest();
   });
 
   it('should not be null', function() {
-    expect(element).toBeTruthy();
+    expect(templateController).toBeTruthy();
   });
 
   it('should show 3 span elements', function() {
@@ -68,7 +70,7 @@ describe('templateController', function() {
     it('should add new element to array', function() {
       expect(element.find('span').length).toBe(4);
       expect(element.html()).toContain(newVal);
-      expect($scope.someArray[3].id).toBe(4);
+      expect(templateController.someArray[3].id).toBe(4);
     });
   });
 });

@@ -1,5 +1,7 @@
-function templateController($scope) {
-  $scope.someArray = [{
+function templateController() {
+  var _this = this;
+
+  _this.someArray = [{
     id: 1,
     name: 'Name1'
   }, {
@@ -10,18 +12,17 @@ function templateController($scope) {
     name: 'Name3'
   }];
 
-  $scope.addToArray = function(name) {
+  _this.addToArray = function(name) {
     var item = {};
-    item.id = $scope.someArray.length + 1;
+    item.id = _this.someArray.length + 1;
     item.name = name;
-    $scope.someArray.push(item);
+    _this.someArray.push(item);
   };
 }
 
-templateController.$inject = ['$scope'];
 
 angular
-.module('ctrlTemplateWithTE', [])
+.module('ctrlAsTemplateWithTE', [])
 .controller('templateController', templateController);
 
 
@@ -29,13 +30,13 @@ describe('templateController', function() {
   var
     element;
 
-  beforeEach(module('ctrlTemplateWithTE'));
+  beforeEach(module('ctrlAsTemplateWithTE'));
   beforeEach(module('templates'));
 
   beforeEach(function() {
     element = new TestElement();
     element.createCtrl('templateController');
-    element.addTemplate('examples/TestElement/template.html');
+    element.addTemplate('examples/TestElement/templateAs.html', 'vm');
   });
 
   it('should not be null', function() {
@@ -58,7 +59,7 @@ describe('templateController', function() {
     it('should add new element to array', function() {
       expect(element.dom.find('span').length).toBe(4);
       expect(element.dom.text()).toContain(newVal);
-      expect(element.scope.someArray[3].id).toBe(4);
+      expect(element.ctrl.someArray[3].id).toBe(4);
     });
   });
 });
