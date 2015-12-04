@@ -29,7 +29,7 @@
   - [TestElement examples](#testelement-examples)
 
 ## Why?
-I've created this package to simplify unit testing in AngularJS apps. I had enough of writing repeated code. For every spec (controller, directive, service) I had to write the same injector and compile blocks of code, for every mocked service I had to write the same lines. With this package everything becomes a easier and faster.
+I've created this package to simplify unit testing in AngularJS apps. I had enough of writing repeated code. For every spec (controller, directive, service) I had to write the same injector and compile blocks of code, for every mocked service I had to write the same lines. With this package, everything becomes easier and faster.
 
 ## Features
 All selectors are using native Javascript `querySelector` or `querySelectorAll`, so `jQuery` is not requierd.
