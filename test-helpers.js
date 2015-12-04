@@ -104,6 +104,14 @@ window.TestElement.prototype = {
     return angular.element(this._el);
   },
 
+  find: function (selector) {
+    return angular.element(this.dom[0].querySelector(selector));
+  },
+
+  findAll: function (selector) {
+    return angular.element(this.dom[0].querySelectorAll(selector));
+  },
+
   destroy: function() {
     this._$scope.$destroy();
     this._el = null;

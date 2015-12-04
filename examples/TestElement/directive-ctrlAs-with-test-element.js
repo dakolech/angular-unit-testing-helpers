@@ -56,7 +56,13 @@ describe('someDirective', function() {
   });
 
   it('should show 3 span elements', function() {
-    expect(element.dom.find('span').length).toBe(3);
+    expect(element.findAll('span').length).toBe(3);
+  });
+
+  describe('button', function() {
+    it('should have .button class', function() {
+      expect(element.find('button').hasClass('button')).toBeTruthy();
+    });
   });
 
   describe('Add new item', function() {
@@ -69,7 +75,7 @@ describe('someDirective', function() {
     });
 
     it('should add new element to array', function() {
-      expect(element.dom.find('span').length).toBe(4);
+      expect(element.findAll('span').length).toBe(4);
       expect(element.dom.text()).toContain(newVal);
       expect(element.ctrl.someArray[3].id).toBe(4);
     });

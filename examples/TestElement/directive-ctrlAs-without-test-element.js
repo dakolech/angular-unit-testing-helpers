@@ -66,6 +66,12 @@ describe('someDirective', function() {
     expect(element.find('span').length).toBe(3);
   });
 
+  describe('button', function() {
+    it('should have .button class', function() {
+      expect(element.find('button').hasClass('button')).toBeTruthy();
+    });
+  });
+
   describe('Add new item', function() {
     var newVal = 'newName';
 

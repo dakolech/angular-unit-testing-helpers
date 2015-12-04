@@ -5,6 +5,7 @@
 ## Table of Contents
 
   - [Why?](#why)
+  - [Features](#features)
   - [Installation](#installation)
   - [TestServ documentation](#testserv-documentation)
     - [TestServ contructor](#testserv-contructor)
@@ -19,12 +20,18 @@
     - [get scope](#get-scope)
     - [get ctrl](#get-ctrl)
     - [get dom](#get-dom)
+    - [find](#find)
+    - [findAll](#findall)
+    - [destroy](#destroy)
     - [clickOn](#clickon)
     - [inputOn](#inputon)
   - [TestElement examples](#testelement-examples)
 
 ## Why?
 I've created this package to simplify unit testing in AngularJS apps. I had enough of writing repeated code. For every spec (controller, directive, service) I had to write the same injector and compile blocks of code, for every mocked service I had to write the same lines. With this package everything becomes a easier and faster.
+
+## Features
+All selectors are using native Javascript `querySelector` or `querySelectorAll`, so `jQuery` is not requierd.
 
 ## Installation:
 
@@ -286,7 +293,7 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
 
   ```javascript
   get scope() {
-    return this._$scope;
+    return this._ctrl ? this._$scope : this.dom.children().scope();
   }
   ```
 
@@ -328,43 +335,113 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
 
 **[Back to top](#table-of-contents)**
 
+### find:
 
-### get clickOn:
+  ```javascript
+  element.find(selector)
+  ```
+
+  `find` will return found angular element with `selector`.
+
+  Implementation:
+
+  ```javascript
+  find: function (selector) {
+    return angular.element(this.dom[0].querySelector(selector));
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### findAll:
+
+  ```javascript
+  element.findAll()
+  ```
+
+  `findAll` will return all found angular elements with `selector`.
+
+  Implementation:
+
+  ```javascript
+  findAll: function (selector) {
+    return angular.element(this.dom[0].querySelectorAll(selector));
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### destroy:
+
+  ```javascript
+  element.destroy()
+  ```
+
+  `destroy` will destroy current element.
+
+  Implementation:
+
+  ```javascript
+  destroy: function() {
+    this._$scope.$destroy();
+    this._el = null;
+    this._ctrl = null;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+
+### clickOn:
 
   ```javascript
   element.clickOn(selector);
   ```
 
-  `clickOn` will click on element found with `selector`. It returns a promise.
+  `clickOn` will click on element found with `selector` and make a `$scope.$digest()`. It returns a promise.
 
   Implementation:
 
   ```javascript
   clickOn: function(selector) {
-
+    if (this.dom[0].querySelector(selector)) {
+      this.dom[0].querySelector(selector).click();
+    } else {
+      document.querySelector(selector).click();
+    }
+    this._$scope.$digest();
+    return this._getFlushedThenable();
+  }
   ```
 
 **[Back to top](#table-of-contents)**
 
 
-### get dom:
+### inputOn:
 
   ```javascript
   element.inputOn(selector, value);
   ```
 
-  `inputOn` will set value of the element found with `selector`. It returns a promise.
+  `inputOn` will set value of the element found with `selector`, trigger a `input` handler and make `$scope.$digest()`. It returns a promise.
 
   Implementation:
 
   ```javascript
   inputOn: function(selector, value) {
-
+    if (this.dom[0].querySelector(selector)) {
+      angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
+    } else {
+      angular.element(document.querySelector(selector)).val(value).triggerHandler('input');
+    }
+    this._$scope.$digest();
+    return this._getFlushedThenable();
+  }
   ```
 
 **[Back to top](#table-of-contents)**
 
 
-## TestServ examples
+## TestElement examples
 
-  [TestServ examples](examples/TestElement)
+  [TestElement examples](examples/TestElement)
