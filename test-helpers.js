@@ -108,8 +108,8 @@ window.TestElement.prototype = {
   },
 
   clickOn: function(selector) {
-    if (this.dom.querySelector(selector)) {
-      this.dom.querySelector(selector).click();
+    if (this.dom[0].querySelector(selector)) {
+      this.dom[0].querySelector(selector).click();
     } else {
       document.querySelector(selector).click();
     }
@@ -118,10 +118,10 @@ window.TestElement.prototype = {
   },
 
   inputOn: function(selector, value) {
-    if (this.dom.find(selector)[0]) {
-      this.dom.find(selector).val(value || '').trigger('input').trigger('keydown');
+    if (this.dom[0].querySelector(selector)) {
+      angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
     } else {
-      $(selector).val(value || '').trigger('input').trigger('keydown');
+      angular.element(document.querySelector(selector)).val(value).triggerHandler('input');
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
@@ -140,23 +140,3 @@ window.TestElement.prototype = {
     };
   },
 }
-
-  // clickOn: function(selector) {
-  //   if (this.dom.querySelector(selector)) {
-  //     this.dom.querySelector(selector).click();
-  //   } else {
-  //     document.querySelector(selector).click();
-  //   }
-  //   this._$scope.$digest();
-  //   return this._getFlushedThenable();
-  // },
-
-  // inputOn: function(selector, value) {
-  //   if (this.dom.querySelector(selector)) {
-  //     this.dom.querySelector(selector).value = value || '';
-  //   } else {
-  //     document.querySelector(selector).value = value || '';
-  //   }
-  //   this._$scope.$digest();
-  //   return this._getFlushedThenable();
-  // },
