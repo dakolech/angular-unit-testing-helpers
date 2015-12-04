@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/dakolech/angular-unit-testing-helpers.svg?branch=master)](https://travis-ci.org/dakolech/angular-unit-testing-helpers)
+[![devDependency Status](https://david-dm.org/dakolech/angular-unit-testing-helpers/dev-status.svg)](https://david-dm.org/dakolech/angular-unit-testing-helpers#info=devDependencies)
 
 # Angular Unit Testing Helpers
 
