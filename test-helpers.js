@@ -31,7 +31,7 @@ window.TestServ.prototype = {
 
 
 
-window.TestElement = function(name) {
+window.TestElement = function() {
   var _this = this;
   inject(function($rootScope, $compile, $timeout, $controller, $templateCache) {
     _this._$scope = $rootScope.$new();
@@ -41,26 +41,17 @@ window.TestElement = function(name) {
     _this.$controller = $controller;
     _this.$templateCache = $templateCache;
   });
-  _this.name = name;
+  this.name = '';
 };
 
 window.TestElement.prototype = {
-  createDirective: function(html, scope) {
-    var elem = angular.element(html);
-    this._$scope = angular.extend(this.$originalScope, scope);
-    this._el = this.$compile(elem)(this._$scope);
-    this._$scope.$digest();
-
-    try {
-      this.$timeout.verifyNoPendingTasks();
-    } catch (e) {
-      this.$timeout.flush();
-    }
-    return this._el;
-  },
-
   createCtrl: function(name, services) {
-    services.$scope = this._$scope;
+    if (!services) {
+      services = {};
+    }
+    if (!services.$scope) {
+      services.$scope = this._$scope;
+    }
     this._ctrl = this.$controller(name, services);
     return this._ctrl;
   },
@@ -86,8 +77,23 @@ window.TestElement.prototype = {
     return this._el;
   },
 
+  createDirective: function(name, html, scope) {
+    this.name = name;
+    var elem = angular.element(html);
+    this._$scope = angular.extend(this.$originalScope, scope);
+    this._el = this.$compile(elem)(this._$scope);
+    this._$scope.$digest();
+
+    try {
+      this.$timeout.verifyNoPendingTasks();
+    } catch (e) {
+      this.$timeout.flush();
+    }
+    return this._el;
+  },
+
   get scope() {
-    return this._$scope;
+    return this._ctrl ? this._$scope : this.dom.children().scope();
   },
 
   get ctrl() {
@@ -98,26 +104,35 @@ window.TestElement.prototype = {
     return angular.element(this._el);
   },
 
+  find: function (selector) {
+    return angular.element(this.dom[0].querySelector(selector));
+  },
+
+  findAll: function (selector) {
+    return angular.element(this.dom[0].querySelectorAll(selector));
+  },
+
   destroy: function() {
     this._$scope.$destroy();
     this._el = null;
+    this._ctrl = null;
   },
 
   clickOn: function(selector) {
-    if (this.dom.find(selector)[0]) {
-      this.dom.find(selector).click();
+    if (this.dom[0].querySelector(selector)) {
+      this.dom[0].querySelector(selector).click();
     } else {
-      $(selector).click();
+      document.querySelector(selector).click();
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
   },
 
   inputOn: function(selector, value) {
-    if (this.dom.find(selector)[0]) {
-      this.dom.find(selector).val(value || '').trigger('input').trigger('keydown');
+    if (this.dom[0].querySelector(selector)) {
+      angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
     } else {
-      $(selector).val(value || '').trigger('input').trigger('keydown');
+      angular.element(document.querySelector(selector)).val(value).triggerHandler('input');
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
