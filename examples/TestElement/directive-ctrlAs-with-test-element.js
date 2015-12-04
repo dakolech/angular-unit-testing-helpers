@@ -23,7 +23,7 @@ function someDirective() {
 }
 
 angular
-.module('directiveCtrlAsWithoutTE', [])
+.module('directiveCtrlAsWithTE', [])
 .directive('someDirective', someDirective);
 
 
@@ -41,7 +41,7 @@ describe('someDirective', function() {
       name: 'Name3'
     }];
 
-  beforeEach(module('directiveCtrlAsWithoutTE'));
+  beforeEach(module('directiveCtrlAsWithTE'));
   beforeEach(module('templates'));
 
   beforeEach(function() {

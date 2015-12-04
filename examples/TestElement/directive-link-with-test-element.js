@@ -19,7 +19,7 @@ function someDirective() {
 }
 
 angular
-.module('directiveLinkWithoutTE', [])
+.module('directiveLinkWithTE', [])
 .directive('someDirective', someDirective);
 
 
@@ -37,43 +37,37 @@ describe('someDirective', function() {
       name: 'Name3'
     }];
 
-  beforeEach(module('directiveLinkWithoutTE'));
+  beforeEach(module('directiveLinkWithTE'));
   beforeEach(module('templates'));
 
   beforeEach(function() {
-    inject(function(_$compile_, _$rootScope_) {
-      $compile = _$compile_;
-      $rootScope = _$rootScope_;
-      $scope = $rootScope;
-      $scope.namesArray = angular.copy(namesArray);
-      element = angular.element('<some-directive some-array="namesArray"></some-directive>');
-      $compile(element)($scope);
-      angular.element(document.body).append(element);
-      $scope.$apply();
+    element = new TestElement();
+    element.createDirective('someDirective', '<some-directive some-array="namesArray"></some-directive>', {
+      namesArray: namesArray
     });
   });
 
   it('should not be null', function() {
-    expect(element).toBeTruthy();
+    expect(element.dom).toBeTruthy();
   });
 
   it('should show 3 span elements', function() {
-    expect(element.find('span').length).toBe(3);
+    expect(element.dom.find('span').length).toBe(3);
   });
 
   describe('Add new item', function() {
     var newVal = 'newName';
 
     beforeEach(function() {
-      angular.element(element[0].querySelector('input')).val(newVal).triggerHandler('input');
-      element[0].querySelector('button').click();
-      $scope.$digest();
+      element.inputOn('.new-item', newVal).then(function() {
+        element.clickOn('.button');
+      });
     });
 
     it('should add new element to array', function() {
-      expect(element.find('span').length).toBe(4);
-      expect(element.html()).toContain(newVal);
-      expect($scope.namesArray[3].id).toBe(4);
+      expect(element.dom.find('span').length).toBe(4);
+      expect(element.dom.text()).toContain(newVal);
+      expect(element.scope.someArray[3].id).toBe(4);
     });
   });
 });
