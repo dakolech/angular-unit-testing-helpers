@@ -41,6 +41,7 @@ window.TestElement = function() {
     _this.$controller = $controller;
     _this.$templateCache = $templateCache;
   });
+  this.name = '';
 };
 
 window.TestElement.prototype = {
@@ -76,7 +77,8 @@ window.TestElement.prototype = {
     return this._el;
   },
 
-  createDirective: function(html, scope) {
+  createDirective: function(name, html, scope) {
+    this.name = name;
     var elem = angular.element(html);
     this._$scope = angular.extend(this.$originalScope, scope);
     this._el = this.$compile(elem)(this._$scope);

@@ -161,7 +161,7 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   Implementation:
 
   ```javascript
-  window.TestElement = function(name) {
+  window.TestElement = function() {
     var _this = this;
     inject(function($rootScope, $compile, $timeout, $controller, $templateCache) {
       _this._$scope = $rootScope.$new();
@@ -171,7 +171,7 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
       _this.$controller = $controller;
       _this.$templateCache = $templateCache;
     });
-    _this.name = name;
+    this.name = '';
   };
   ```
 
@@ -249,16 +249,16 @@ I've created this package to simplify unit testing in AngularJS apps. I had enou
   ```javascript
   var element;
   element = new TestElement();
-  element.createDirective(html, scope);
+  element.createDirective(name, html, scope);
   ```
 
-  `createDirective` will create and return an angular element with with `html` and `scope`. `html` is a string and `scope` is an object, e. g.: `html = '<some-directive attribute="someValue"></some-directive>'; scope = { someValue: 123 };`.
+  `createDirective` will create and return an angular element with with `html` and `scope`. `name` is a name of the directive, `html` is a string and `scope` is an object, e. g.: `name = 'someDirective', html = '<some-directive attribute="someValue"></some-directive>'; scope = { someValue: 123 };`.
 
   Implementation:
 
   ```javascript
-  createDirective: function(html, scope) {
-    var elem = angular.element(html);
+  createDirective: function(name, html, scope) {
+    this.name = name;
     this._$scope = angular.extend(this.$originalScope, scope);
     this._el = this.$compile(elem)(this._$scope);
     this._$scope.$digest();
