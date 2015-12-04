@@ -93,7 +93,7 @@ window.TestElement.prototype = {
   },
 
   get scope() {
-    return this._$scope;
+    return this._ctrl ? this._$scope : this.dom.children().scope();
   },
 
   get ctrl() {
