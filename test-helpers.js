@@ -154,6 +154,7 @@ window.TestElement.prototype = {
   },
 }
 
+
 window.Dummy = {
   get filter() {
     return function(input) {
@@ -165,3 +166,60 @@ window.Dummy = {
     return [{ restrict: 'AE' }];
   }
 }
+
+
+window.Factory = {
+  define: function(name, attributes) {
+    if (!this.models) {
+      this.models = {}
+    };
+    this.models[name] = attributes;
+  },
+
+  create: function(name, attributes) {
+    var model = angular.copy(this.models[name]);
+    if (model) {
+      if (attributes) {
+        for (var property in attributes) {
+          if (attributes.hasOwnProperty(property)) {
+            model[property] = attributes[property];
+          }
+        }
+      }
+    }
+    return model;
+  },
+
+  createList: function(name, number, attributes) {
+    var
+      model = angular.copy(this.models[name]),
+      list = [],
+      i = 0;
+
+    if (model) {
+      if (attributes) {
+        for (var property in attributes) {
+          if (attributes.hasOwnProperty(property)) {
+            model[property] = attributes[property];
+          }
+        }
+      }
+    };
+
+    for (i; i <= number; i++) {
+      list.push(model);
+    };
+
+    return list;
+  },
+}
+
+// Factory.define('user', {
+//   name: 'asd',
+//   id: 123
+// });
+
+// console.log(Factory.create('user', {id: 1, name: 'xvc'}))
+
+// console.log(Factory.createList('user', 2))
+
