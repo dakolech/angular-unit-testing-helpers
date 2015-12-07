@@ -27,6 +27,10 @@
     - [clickOn](#clickon)
     - [inputOn](#inputon)
   - [TestElement examples](#testelement-examples)
+  - [Dummy documentation](#dummy-documentation)
+    - [filter](#filter)
+    - [directive](#directive)
+  - [Dummy examples](#dummy-examples)
 
 ## Why?
 I've created this package to simplify unit testing in AngularJS apps. I had enough of writing repeated code. For every spec (controller, directive, service) I had to write the same injector and compile blocks of code, for every mocked service I had to write the same lines. With this package, everything becomes easier and faster.
@@ -294,7 +298,9 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   ```javascript
   get scope() {
-    return this._ctrl ? this._$scope : this.dom.children().scope();
+    return this._ctrl ?
+      this._$scope : Object.keys(this.dom.children()).length ?
+        this.dom.children().scope() : this.dom.scope();
   }
   ```
 
@@ -408,7 +414,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
     if (this.dom[0].querySelector(selector)) {
       this.dom[0].querySelector(selector).click();
     } else {
-      document.querySelector(selector).click();
+      this.dom[0].click();
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
@@ -432,8 +438,8 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   inputOn: function(selector, value) {
     if (this.dom[0].querySelector(selector)) {
       angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
-    } else {
-      angular.element(document.querySelector(selector)).val(value).triggerHandler('input');
+    } else if (this.dom[0].tagName == 'INPUT') {
+      this._el.val(value).triggerHandler('input');
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
@@ -446,3 +452,50 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 ## TestElement examples
 
   [TestElement examples](examples/TestElement)
+
+**[Back to top](#table-of-contents)**
+
+
+## Dummy documentation
+
+### filter:
+
+  ```javascript
+  Dummy.filter;
+  ```
+
+  `filter` will return the simpliest filter. It's useful when filter depends on service from another module.
+
+  Implementation:
+
+  ```javascript
+  get filter() {
+    return function(input) {
+      return input;
+    };
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### directive:
+
+  ```javascript
+  Dummy.directive
+  ```
+
+  `directive` will return the simpliest directive. It's useful when filter depends on service from another module.
+
+  Implementation:
+  ```javascript
+  get directive() {
+    return [{ restrict: 'AE' }];
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+## Dummy examples
+
+  [Dummy examples](examples/Dummy)
+
