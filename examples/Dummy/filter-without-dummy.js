@@ -16,7 +16,7 @@ function capitalize() {
   return directive;
 }
 
-capitalize.$inject = ['someService'];
+capitalize.$inject = ['serviceFromAnotherModule'];
 
 angular
 .module('filterWithoutDummy', [])

@@ -16,7 +16,7 @@ function anotherElement() {
   return directive;
 }
 
-anotherElement.$inject = ['someService'];
+anotherElement.$inject = ['serviceFromAnotherModule'];
 
 angular
 .module('directiveWithoutDummy', [])
