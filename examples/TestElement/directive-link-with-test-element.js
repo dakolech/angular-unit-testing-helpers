@@ -25,7 +25,7 @@ angular
 
 describe('someDirective', function() {
   var
-    element, directiveController, $compile, $rootScope, $scope,
+    element, $compile, $rootScope, $scope,
     namesArray = [{
       id: 1,
       name: 'Name1'

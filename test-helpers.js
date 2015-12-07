@@ -93,7 +93,9 @@ window.TestElement.prototype = {
   },
 
   get scope() {
-    return this._ctrl ? this._$scope : this.dom.children().scope();
+    return this._ctrl ?
+      this._$scope : Object.keys(this.dom.children()).length ?
+        this.dom.children().scope() : this.dom.scope();
   },
 
   get ctrl() {
@@ -122,7 +124,7 @@ window.TestElement.prototype = {
     if (this.dom[0].querySelector(selector)) {
       this.dom[0].querySelector(selector).click();
     } else {
-      document.querySelector(selector).click();
+      this.dom[0].click();
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
@@ -131,8 +133,8 @@ window.TestElement.prototype = {
   inputOn: function(selector, value) {
     if (this.dom[0].querySelector(selector)) {
       angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
-    } else {
-      angular.element(document.querySelector(selector)).val(value).triggerHandler('input');
+    } else if (this.dom[0].tagName == 'INPUT') {
+      this._el.val(value).triggerHandler('input');
     }
     this._$scope.$digest();
     return this._getFlushedThenable();
@@ -150,4 +152,16 @@ window.TestElement.prototype = {
       }
     };
   },
+}
+
+window.Dummy = {
+  get filter() {
+    return function(input) {
+      return input;
+    };
+  },
+
+  get directive() {
+    return [{ restrict: 'AE' }];
+  }
 }
