@@ -16,13 +16,13 @@ function anotherElement() {
   return directive;
 }
 
-anotherElement.$inject = ['serviceFromAnotherModule'];
-
+angular
+.module('AnotherModule', [])
+.directive('anotherElement', anotherElement);
 
 angular
-.module('directiveWithDummy', [])
-.directive('someDirective', someDirective)
-.directive('anotherElement', anotherElement);
+.module('directiveWithDummy', ['AnotherModule'])
+.directive('someDirective', someDirective);
 
 
 describe('someDirective', function() {

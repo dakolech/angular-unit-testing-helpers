@@ -16,12 +16,14 @@ function capitalize() {
   return directive;
 }
 
-capitalize.$inject = ['serviceFromAnotherModule'];
+angular
+.module('AnotherModule4', [])
+.directive('capitalize', anotherElement);
 
 angular
-.module('filterWithoutDummy', [])
-.directive('someDirective', someDirective)
-.directive('capitalize', capitalize);
+.module('filterWithoutDummy', ['AnotherModule4'])
+.directive('someDirective', someDirective);
+
 
 
 describe('someDirective', function() {

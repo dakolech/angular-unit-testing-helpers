@@ -464,7 +464,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   Dummy.filter;
   ```
 
-  `filter` will return the simpliest filter. It's useful when filter depends on service from another module.
+  `filter` will return the simpliest filter. It's useful when filter is in another module.
 
   Implementation:
 
@@ -484,7 +484,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   Dummy.directive
   ```
 
-  `directive` will return the simpliest directive. It's useful when filter depends on service from another module.
+  `directive` will return the simpliest directive. It's useful when directive is in another module.
 
   Implementation:
   ```javascript
