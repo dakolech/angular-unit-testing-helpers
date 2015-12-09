@@ -155,7 +155,7 @@ window.TestElement.prototype = {
 }
 
 
-window.Dummy = {
+window.TestDummy = {
   get filter() {
     return function(input) {
       return input;

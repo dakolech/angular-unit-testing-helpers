@@ -2,12 +2,12 @@ function someDirective() {
   var directive = {
     restrict: 'E',
     replace: true,
-    template: '<div> {{ text | capitalize }}</div>'
+    template: '<div another-element></div>'
   };
   return directive;
 }
 
-function capitalize() {
+function anotherElement() {
   var directive = {
     restrict: 'EA',
     replace: true,
@@ -17,11 +17,11 @@ function capitalize() {
 }
 
 angular
-.module('AnotherModule3', [])
-.directive('capitalize', anotherElement);
+.module('AnotherModule', [])
+.directive('anotherElement', anotherElement);
 
 angular
-.module('filterWithDummy', ['AnotherModule3'])
+.module('directiveWithDummy', ['AnotherModule'])
 .directive('someDirective', someDirective);
 
 
@@ -29,8 +29,8 @@ describe('someDirective', function() {
   var
     element, $compile, $rootScope, $scope;
 
-  beforeEach(module('filterWithDummy', {
-    capitalizeFilter: Dummy.filter
+  beforeEach(module('directiveWithDummy', {
+    anotherElementDirective: TestDummy.directive
   }));
 
   beforeEach(function() {
