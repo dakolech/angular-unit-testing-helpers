@@ -186,6 +186,12 @@ window.TestFactory = {
           }
         }
       }
+
+      for (var property in model) {
+        if (model.hasOwnProperty(property) && typeof model[property] === 'function') {
+          model[property] = model[property]();
+        }
+      }
     }
     return model;
   },
@@ -206,20 +212,66 @@ window.TestFactory = {
       }
     };
 
+    for (var property in model) {
+      if (model.hasOwnProperty(property) && typeof model[property] === 'function') {
+        model[property].clear();
+      }
+    }
+
     for (i; i < number; i++) {
-      list.push(model);
+      list.push(angular.copy(model));
     };
+
+    list = list.map(function(item) {
+      for (var property in item) {
+        if (item.hasOwnProperty(property) && typeof item[property] === 'function') {
+          item[property] = item[property]();
+        }
+      }
+      return item;
+    });
 
     return list;
   },
-}
 
-// Factory.define('user', {
-//   name: 'asd',
-//   id: 123
-// });
+  defineSequence: function(name, argOne, argTwo) {
+    var callback, iterator;
+    if (!this.seq) {
+      this.seq = {};
+    }
+    if (typeof argOne == 'function') {
+      callback = argOne;
+      iterator = argTwo ? argTwo : 1;
+    } else {
+      iterator = argOne ? argOne : 1;
+      callback = function(value) {
+        return value;
+      }
+    }
 
-// console.log(Factory.create('user', {id: 1, name: 'xvc'}))
+    this.seq[name] = {
+      value: 0,
+      callback: callback,
+      iterator: iterator
+    }
+  },
 
-// console.log(Factory.createList('user', 2))
+  sequence: function(name) {
+    var _this = this;
+    if (!!this.seq[name]) {
+      var returnedObject = function() {
+        _this.seq[name].value += _this.seq[name].iterator;
+        return _this.seq[name].callback(_this.seq[name].value);
+      }
+
+      returnedObject.clear = function() {
+        _this.seq[name].value = 0
+      }
+
+      return returnedObject;
+    }
+  }
+};
+
+
 
