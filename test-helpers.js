@@ -168,7 +168,7 @@ window.Dummy = {
 }
 
 
-window.Factory = {
+window.TestFactory = {
   define: function(name, attributes) {
     if (!this.models) {
       this.models = {}
@@ -206,7 +206,7 @@ window.Factory = {
       }
     };
 
-    for (i; i <= number; i++) {
+    for (i; i < number; i++) {
       list.push(model);
     };
 
