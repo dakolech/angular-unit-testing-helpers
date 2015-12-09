@@ -27,6 +27,13 @@
     - [clickOn](#clickon)
     - [inputOn](#inputon)
   - [TestElement examples](#testelement-examples)
+  - [TestFactory documentation](#testfactory-documentation)
+    - [define](#define)
+    - [create](#create)
+    - [createList](#createlist)
+    - [defineSequence](#definesequence)
+    - [sequence](#sequence)
+  - [TestFactory examples](#testfactory-examples)
   - [Dummy documentation](#dummy-documentation)
     - [filter](#filter)
     - [directive](#directive)
@@ -455,6 +462,119 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
 **[Back to top](#table-of-contents)**
 
+
+## TestFactory documentation
+
+### define:
+
+  ```javascript
+  TestFactory.define(name, attributes);
+  ```
+
+  `define` will define a model with `attributes` for creating factories. `name` should be unique. It should be called before any create action. The best solution is to define models in seperate folder and inject it at the beginning of the `karma.config` file (but after `test-helpers`).
+
+  Example:
+
+  ```javascript
+  TestFactory.define('user', {
+    name: 'someName',
+    id: 123,
+    pet: {
+      type: 'cat',
+      name: 'Tom'
+    },
+    friends: ['Neo', 'Trinity', 'Morfeus']
+  });
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### create:
+
+  ```javascript
+  TestFactory.create(name, attributes)
+  ```
+
+  `create` will create an object with model named `name`. `attributes` are an optional argument, it overwrites default attributes defined with `define` method.
+
+  Example:
+  ```javascript
+  user = TestFactory.create('user', {
+    name: 'John',
+    pet: {
+      name: 'Jerry',
+      type: 'mouse'
+  });
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### createList:
+
+  ```javascript
+  TestFactory.createList(name, number, attributes)
+  ```
+
+  `createList` will create an collection of object with model named `name`. `number` defines how many objects in collections should be added. `attributes` are an optional argument, it overwrites default attributes defined with `define` method.
+
+  Example:
+  ```javascript
+  users = TestFactory.createList('user', 3 {
+    name: 'John',
+    pet: {
+      name: 'Jerry',
+      type: 'mouse'
+  });
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### defineSequence:
+
+  ```javascript
+  TestFactory.defineSequence(name, argOne, argTwo)
+  ```
+
+  `defineSequence` will define a model with `attributes` for creating factories. `name` should be unique. It should be called before any sequence call. `argOne` can be iterator or function.
+
+  Example:
+  ```javascript
+  TestFactory.defineSequence('simpleSeq'); // => 1,2,3...
+  TestFactory.defineSequence('seqWithIterator', 4); // => 4,8,12...
+  TestFactory.defineSequence('seqWithFunction', function(value) {
+    return 'Name ' + value;
+  }); // => 'Name 1', 'Name 2', 'Name 3'...
+  TestFactory.defineSequence('seqWithFunctionAndIterator', function(value) {
+    return 'Age ' + value;
+  }, 5); // => 'Age 5', 'Age 10', 'Age 15'...
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### sequence:
+
+  ```javascript
+  TestFactory.sequence(name);
+  TestFactory.sequence(name);
+  ```
+
+  `sequence` returns a function. When you call it, then sequnce will increment. When you call `clear` method on it, then sequnce will be cleared to default value;
+
+  Example:
+  ```javascript
+  TestFactory.defineSequence('simpleSeq');
+  TestFactory.sequence('simpleSeq')(); // => 1
+  TestFactory.sequence('simpleSeq')(); // => 2
+  TestFactory.sequence('simpleSeq').clear();
+  TestFactory.sequence('simpleSeq')(); // => 1
+  TestFactory.sequence('simpleSeq')(); // => 2
+  ```
+
+**[Back to top](#table-of-contents)**
+
+## TestFactory examples
+
+  [TestFactory examples](examples/TestFactory)
 
 ## Dummy documentation
 
