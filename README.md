@@ -18,6 +18,7 @@
     - [createCtrl](#createctrl)
     - [addTemplate](#addtemplate)
     - [createDirective](#createdirective)
+    - [createFilter](#createfilter)
     - [get scope](#get-scope)
     - [get ctrl](#get-ctrl)
     - [get dom](#get-dom)
@@ -27,6 +28,9 @@
     - [clickOn](#clickon)
     - [inputOn](#inputon)
   - [TestElement examples](#testelement-examples)
+  - [TestModule documentation](#testmodule-documentation)
+    - [hasModule](#hasmodule)
+  - [TestModule examples](#testmodule-examples)
   - [TestFactory documentation](#testfactory-documentation)
     - [define](#define)
     - [create](#create)
@@ -118,7 +122,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   ```javascript
   var someService = new TestServ();
-  TestServ.addMethod(name, returnedValue);
+  someService.addMethod(name, returnedValue);
   ```
 
   `addMethod` will add an empty function to the someService at `name` value and also create spyOn on this created method. spyOn will return `returnedValue`.
@@ -141,7 +145,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   ```javascript
   var someService = new TestServ();
-  TestServ.addPromise(name);
+  someService.addPromise(name);
   ```
 
   `addPromise` will add an empty function to the someService at `name` value and also create spyOn on this created method. Same as `addMethod`.
@@ -288,6 +292,25 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
       this.$timeout.flush();
     }
     return this._el;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### createFilter:
+
+  ```javascript
+  var filter;
+  filter = new TestElement().createFilter(name);
+  ```
+
+  `createFilter` will return filter with given name.
+
+  Implementation:
+
+  ```javascript
+  createFilter: function(name) {
+    return this.$filter(name);
   }
   ```
 
@@ -462,6 +485,52 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
 **[Back to top](#table-of-contents)**
 
+## TestModule documentation
+
+### TestModule contructor:
+
+  ```javascript
+  new TestModule(name);
+  ```
+
+  It will create an module object with given `name`;
+
+  Implementation:
+
+  ```javascript
+  window.TestModule = function(name) {
+    this.module = angular.module(name);
+    this.deps = this.module.value(name).requires;
+  };
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### hasModule:
+
+  ```javascript
+  var someModule = new TestModule(moduleName);
+  someModule.hasModule(dependencyModule);
+  ```
+
+  `hasModule` will return `boolean` value: `true` if `moduleName` has  dependencyModule as a dependency and `false` if not.
+
+  Implementation:
+
+  ```javascript
+  hasModule: function(name) {
+    return this.deps.indexOf(name) >= 0;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+
+## TestModule examples
+
+  [TestModule examples](examples/TestModule)
+
+**[Back to top](#table-of-contents)**
 
 ## TestFactory documentation
 

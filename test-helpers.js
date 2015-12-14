@@ -33,13 +33,14 @@ window.TestServ.prototype = {
 
 window.TestElement = function() {
   var _this = this;
-  inject(function($rootScope, $compile, $timeout, $controller, $templateCache) {
+  inject(function($rootScope, $compile, $timeout, $controller, $templateCache, $filter) {
     _this._$scope = $rootScope.$new();
     _this.$originalScope = $rootScope.$new();
     _this.$compile = $compile;
     _this.$timeout = $timeout;
     _this.$controller = $controller;
     _this.$templateCache = $templateCache;
+    _this.$filter = $filter;
   });
   this.name = '';
 };
@@ -90,6 +91,10 @@ window.TestElement.prototype = {
       this.$timeout.flush();
     }
     return this._el;
+  },
+
+  createFilter: function(name) {
+    return this.$filter(name);
   },
 
   get scope() {
@@ -272,6 +277,18 @@ window.TestFactory = {
     }
   }
 };
+
+window.TestModule = function(name) {
+  this.module = angular.module(name);
+  this.deps = this.module.value(name).requires;
+};
+
+window.TestModule.prototype = {
+  hasModule: function(name) {
+    return this.deps.indexOf(name) >= 0;
+  }
+}
+
 
 
 
