@@ -27,7 +27,7 @@ window.TestServ.prototype = {
     spyOn(this, name).and.returnValue(
       typeof returnedValue === "function" ? returnedValue() : returnedValue);
   }
-}
+};
 
 
 
@@ -156,8 +156,8 @@ window.TestElement.prototype = {
         fn();
       }
     };
-  },
-}
+  }
+};
 
 
 window.TestDummy = {
@@ -170,7 +170,7 @@ window.TestDummy = {
   get directive() {
     return [{ restrict: 'AE' }];
   }
-}
+};
 
 
 window.TestFactory = {
@@ -287,7 +287,7 @@ window.TestModule.prototype = {
   hasModule: function(name) {
     return this.deps.indexOf(name) >= 0;
   }
-}
+};
 
 
 
