@@ -186,13 +186,14 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   ```javascript
   window.TestElement = function() {
     var _this = this;
-    inject(function($rootScope, $compile, $timeout, $controller, $templateCache) {
+    inject(function($rootScope, $compile, $timeout, $controller, $templateCache, $filter) {
       _this._$scope = $rootScope.$new();
       _this.$originalScope = $rootScope.$new();
       _this.$compile = $compile;
       _this.$timeout = $timeout;
       _this.$controller = $controller;
       _this.$templateCache = $templateCache;
+      _this.$filter = $filter;
     });
     this.name = '';
   };
