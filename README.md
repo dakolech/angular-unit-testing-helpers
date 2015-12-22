@@ -18,6 +18,7 @@
     - [createCtrl](#createctrl)
     - [addTemplate](#addtemplate)
     - [createDirective](#createdirective)
+    - [createComponent](#createcomponent)
     - [createFilter](#createfilter)
     - [get scope](#get-scope)
     - [get ctrl](#get-ctrl)
@@ -292,6 +293,27 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
     } catch (e) {
       this.$timeout.flush();
     }
+    return this._el;
+  }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+### createComponent:
+
+  ```javascript
+  var element;
+  element = new TestElement();
+  element.createComponent(name, html, scope);
+  ```
+
+  `createComponent` is an alias to createDirective method.
+
+  Implementation:
+
+  ```javascript
+  createComponent: function(name, html, scope) {
+    this.createDirective(name, html, scope);
     return this._el;
   }
   ```

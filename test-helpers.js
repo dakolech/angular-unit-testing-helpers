@@ -93,6 +93,11 @@ window.TestElement.prototype = {
     return this._el;
   },
 
+  createComponent: function(name, html, scope) {
+    this.createDirective(name, html, scope);
+    return this._el;
+  },
+
   createFilter: function(name) {
     return this.$filter(name);
   },
