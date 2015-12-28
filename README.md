@@ -563,7 +563,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   TestFactory.define(name, attributes);
   ```
 
-  `define` will define a model with `attributes` for creating factories. `name` should be unique. It should be called before any create action. The best solution is to define models in seperate folder and inject it at the beginning of the `karma.config` file (but after `test-helpers`).
+  `define` will define a model with `attributes` for creating factories (it can be also a `sequence`). `name` should be unique. It should be called before any create action. The best solution is to define models in seperate folder and inject it at the beginning of the `karma.config` file (but after `test-helpers`).
 
   Example:
 
@@ -611,7 +611,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   Example:
   ```javascript
-  users = TestFactory.createList('user', 3 {
+  users = TestFactory.createList('user', 3, {
     name: 'John',
     pet: {
       name: 'Jerry',
