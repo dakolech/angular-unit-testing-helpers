@@ -189,17 +189,21 @@ window.TestFactory = {
   create: function(name, attributes) {
     var model = angular.copy(this.models[name]);
     if (model) {
-      if (attributes) {
-        for (var property in attributes) {
-          if (attributes.hasOwnProperty(property)) {
-            model[property] = attributes[property];
+      if (typeof model === 'function') {
+        model = model();
+      } else {
+        if (attributes) {
+          for (var property in attributes) {
+            if (attributes.hasOwnProperty(property)) {
+              model[property] = attributes[property];
+            }
           }
         }
-      }
 
-      for (var property in model) {
-        if (model.hasOwnProperty(property) && typeof model[property] === 'function') {
-          model[property] = model[property]();
+        for (var property in model) {
+          if (model.hasOwnProperty(property) && typeof model[property] === 'function') {
+            model[property] = model[property]();
+          }
         }
       }
     }
@@ -223,13 +227,17 @@ window.TestFactory = {
     };
 
     for (var property in model) {
-      if (model.hasOwnProperty(property) && typeof model[property] === 'function') {
+      if (model.hasOwnProperty(property) && typeof model !== 'function' && typeof model[property] === 'function') {
         model[property].clear();
       }
     }
 
     for (i; i < number; i++) {
-      list.push(angular.copy(model));
+      if (typeof model === 'function') {
+        list.push(angular.copy(model()));
+      } else {
+        list.push(angular.copy(model));
+      }
     };
 
     list = list.map(function(item) {
