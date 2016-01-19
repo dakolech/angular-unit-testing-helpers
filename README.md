@@ -39,7 +39,7 @@
     - [defineSequence](#definesequence)
     - [sequence](#sequence)
   - [TestFactory examples](#testfactory-examples)
-  - [Dummy documentation](#dummy-documentation)
+  - [TestDummy documentation](#testdummy-documentation)
     - [filter](#filter)
     - [directive](#directive)
   - [Dummy examples](#dummy-examples)
@@ -668,12 +668,12 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   [TestFactory examples](examples/TestFactory)
 
-## Dummy documentation
+## TestDummy documentation
 
 ### filter:
 
   ```javascript
-  Dummy.filter;
+  TestDummy.filter;
   ```
 
   `filter` will return the simpliest filter. It's useful when filter is in another module.
@@ -693,7 +693,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 ### directive:
 
   ```javascript
-  Dummy.directive
+  TestDummy.directive
   ```
 
   `directive` will return the simpliest directive. It's useful when directive is in another module.
@@ -707,7 +707,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
 **[Back to top](#table-of-contents)**
 
-## Dummy examples
+## TestDummy examples
 
-  [Dummy examples](examples/Dummy)
+  [TestDummy examples](examples/TestDummy)
 
