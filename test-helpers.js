@@ -148,11 +148,19 @@ window.TestElement.prototype = {
     return this._getFlushedThenable();
   },
 
-  inputOn: function(selector, value) {
-    if (this.dom[0].querySelector(selector)) {
-      angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
-    } else if (this.dom[0].tagName == 'INPUT') {
-      this._el.val(value).triggerHandler('input');
+  inputOn: function(selector, value, which) {
+    if (!which) {
+      if (this.dom[0].querySelector(selector)) {
+        angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
+      } else if (this.dom[0].tagName == 'INPUT') {
+        this._el.val(value).triggerHandler('input');
+      }
+    } else {
+      if (this.dom[0].querySelectorAll(selector)[which]) {
+        angular.element(this.dom[0].querySelectorAll(selector)[which]).val(value).triggerHandler('input');
+      } else if (this.dom[0].tagName == 'INPUT') {
+        this._el.val(value).triggerHandler('input');
+      }
     }
     this._$scope.$digest();
     return this._getFlushedThenable();

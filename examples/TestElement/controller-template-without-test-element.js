@@ -66,7 +66,7 @@ describe('templateController', function() {
     var newVal = 'newName';
 
     beforeEach(function() {
-      angular.element(element[0].querySelector('input')).val(newVal).triggerHandler('input');
+      angular.element(element[0].querySelectorAll('input')[1]).val(newVal).triggerHandler('input');
       element[0].querySelector('button').click();
       $scope.$digest();
     });

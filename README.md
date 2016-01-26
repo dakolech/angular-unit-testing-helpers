@@ -434,7 +434,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
     }
     returnedArray.pop();
     return returnedArray;
-  },
+  }
   ```
 
 **[Back to top](#table-of-contents)**
@@ -488,19 +488,28 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 ### inputOn:
 
   ```javascript
-  element.inputOn(selector, value);
+  element.inputOn(selector, value, which);
   ```
 
   `inputOn` will set value of the element found with `selector`, trigger a `input` handler and make `$scope.$digest()`. It returns a promise.
+  If you have many inputs with the same selector, then you can pass which input you want to react with by adding number as a third argument (0 is a first input). `which` is an optional argument.
 
   Implementation:
 
   ```javascript
-  inputOn: function(selector, value) {
-    if (this.dom[0].querySelector(selector)) {
-      angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
-    } else if (this.dom[0].tagName == 'INPUT') {
-      this._el.val(value).triggerHandler('input');
+  inputOn: function(selector, value, which) {
+    if (!which) {
+      if (this.dom[0].querySelector(selector)) {
+        angular.element(this.dom[0].querySelector(selector)).val(value).triggerHandler('input');
+      } else if (this.dom[0].tagName == 'INPUT') {
+        this._el.val(value).triggerHandler('input');
+      }
+    } else {
+      if (this.dom[0].querySelectorAll(selector)[which]) {
+        angular.element(this.dom[0].querySelectorAll(selector)[which]).val(value).triggerHandler('input');
+      } else if (this.dom[0].tagName == 'INPUT') {
+        this._el.val(value).triggerHandler('input');
+      }
     }
     this._$scope.$digest();
     return this._getFlushedThenable();

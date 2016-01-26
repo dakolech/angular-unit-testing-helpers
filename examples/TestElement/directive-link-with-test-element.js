@@ -65,7 +65,7 @@ describe('someDirective', function() {
     var newVal = 'newName';
 
     beforeEach(function() {
-      element.inputOn('.new-item', newVal).then(function() {
+      element.inputOn('.new-item', newVal, 1).then(function() {
         element.clickOn('.button');
       });
     });
