@@ -127,11 +127,10 @@ window.TestElement.prototype = {
     var htmlObject = this.dom[0].querySelectorAll(selector);
     var returnedArray = [];
     for (var property in htmlObject) {
-      if (htmlObject.hasOwnProperty(property)) {
+      if (htmlObject.hasOwnProperty(property) && typeof htmlObject[property] !== 'number') {
         returnedArray.push(angular.element(htmlObject[property]));
       }
     }
-    returnedArray.pop();
     return returnedArray;
   },
 
