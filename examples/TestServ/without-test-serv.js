@@ -6,12 +6,15 @@ function someController(SomeService, Alerts) {
       Alerts.error('Error: ' + error.message)
     });
   }
+
+  var someValue = 'Butterfly';
+  this.butterfly = SomeService.modify(someValue);
 }
 
 someController.$inject = ['SomeService', 'Alerts'];
 
 angular
-.module('someApp', [])
+.module('controllerWithoutTestServ', [])
 .controller('someController', someController);
 
 
@@ -19,7 +22,10 @@ describe('someController', function() {
   var
     someController, $controller, $rootScope, $scope,
     mockedSomeService = {
-      create: angular.noop
+      create: angular.noop,
+      modify: function(input) {
+        return input
+      }
     },
     mockedAlerts = {
       success: angular.noop,
@@ -28,7 +34,7 @@ describe('someController', function() {
     successCallback,
     failCallback;
 
-  beforeEach(module('someApp'));
+  beforeEach(module('controllerWithoutTestServ'));
 
   beforeEach(function() {
     //mocking promise
@@ -38,6 +44,7 @@ describe('someController', function() {
         failCallback = fail;
       }
     });
+    spyOn(mockedSomeService, 'modify').and.callThrough();
 
     spyOn(mockedAlerts, 'success');
     spyOn(mockedAlerts, 'error');
@@ -58,6 +65,10 @@ describe('someController', function() {
 
   it('should not be null', function() {
     expect(someController).toBeTruthy();
+  });
+
+  it('should bind someValue to this.butterfly', function() {
+    expect(someController.butterfly).toBe('Butterfly');
   });
 
   describe('create method', function() {

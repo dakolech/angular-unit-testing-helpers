@@ -22,10 +22,13 @@ window.TestServ.prototype = {
   },
 
   addMethod: function(name, returnedValue) {
-    this[name] = function() {};
-
-    spyOn(this, name).and.returnValue(
-      typeof returnedValue === "function" ? returnedValue() : returnedValue);
+    if (typeof returnedValue === "function" ) {
+      this[name] = returnedValue;
+      spyOn(this, name).and.callThrough();
+    } else {
+      this[name] = angular.noop;
+      spyOn(this, name).and.returnValue(returnedValue);
+    }
   }
 };
 

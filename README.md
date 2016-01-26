@@ -127,16 +127,19 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   ```
 
   `addMethod` will add an empty function to the someService at `name` value and also create spyOn on this created method. spyOn will return `returnedValue`.
-  `returnedValue` can be undefined or a value or an object or a function.
+  `returnedValue` can be undefined, a value, an object or a function.
 
   Implementation:
 
   ```javascript
   addMethod: function(name, returnedValue) {
-    this[name] = function() {};
-
-    spyOn(this, name).and.returnValue(
-      typeof returnedValue === "function" ? returnedValue() : returnedValue);
+    if (typeof returnedValue === "function" ) {
+      this[name] = returnedValue;
+      spyOn(this, name).and.callThrough();
+    } else {
+      this[name] = angular.noop;
+      spyOn(this, name).and.returnValue(returnedValue);
+    }
   }
   ```
 

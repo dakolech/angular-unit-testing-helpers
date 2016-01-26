@@ -5,13 +5,16 @@ function someController(SomeService, Alerts) {
     }, function(error) {
       Alerts.error('Error: ' + error.message)
     });
-  }
+  };
+
+  var someValue = 'Butterfly';
+  this.butterfly = SomeService.modify(someValue);
 }
 
 someController.$inject = ['SomeService', 'Alerts'];
 
 angular
-.module('someApp', [])
+.module('controllerWithTestServ', [])
 .controller('someController', someController);
 
 
@@ -21,11 +24,12 @@ describe('someController', function() {
     mockedSomeService = new TestServ(),
     mockedAlerts = new TestServ();
 
-  beforeEach(module('someApp'));
+  beforeEach(module('controllerWithTestServ'));
 
   beforeEach(function() {
     //mocking promise
     mockedSomeService.addPromise('create');
+    mockedSomeService.addMethod('modify', function(input) {return input});
     mockedAlerts.addMethod('success');
     mockedAlerts.addMethod('error');
   });
@@ -45,6 +49,10 @@ describe('someController', function() {
 
   it('should not be null', function() {
     expect(someController).toBeTruthy();
+  });
+
+  it('should bind someValue to this.butterfly', function() {
+    expect(someController.butterfly).toBe('Butterfly');
   });
 
   describe('create method', function() {
