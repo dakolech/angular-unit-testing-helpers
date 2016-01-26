@@ -1,6 +1,6 @@
 <div>
   <div ng-repeat="item in vm.someArray">
-    <span ng-bind="item.name"></span>
+    <span ng-class="'class' + $index" ng-bind="item.name"></span>
   </div>
 
   <input class="new-item" type="text" ng-model="vm.newItem">

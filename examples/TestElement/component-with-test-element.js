@@ -53,6 +53,10 @@ describe('someComponent', function() {
     expect(element.findAll('span').length).toBe(3);
   });
 
+  it('second span should have class1 class', function() {
+    expect(element.findAll('span')[1].hasClass('class1')).toBeTruthy();
+  });
+
   describe('button', function() {
     it('should have .button class', function() {
       expect(element.find('button').hasClass('button')).toBeTruthy();

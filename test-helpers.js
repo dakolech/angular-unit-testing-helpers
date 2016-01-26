@@ -121,7 +121,15 @@ window.TestElement.prototype = {
   },
 
   findAll: function (selector) {
-    return angular.element(this.dom[0].querySelectorAll(selector));
+    var htmlObject = this.dom[0].querySelectorAll(selector);
+    var returnedArray = [];
+    for (var property in htmlObject) {
+      if (htmlObject.hasOwnProperty(property)) {
+        returnedArray.push(angular.element(htmlObject[property]));
+      }
+    }
+    returnedArray.pop();
+    return returnedArray;
   },
 
   destroy: function() {
