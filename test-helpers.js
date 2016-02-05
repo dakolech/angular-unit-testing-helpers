@@ -19,6 +19,7 @@ window.TestServ.prototype = {
         _this[name].fail = fail;
       }
     });
+    return this;
   },
 
   addMethod: function(name, returnedValue) {
@@ -27,8 +28,9 @@ window.TestServ.prototype = {
       spyOn(this, name).and.callThrough();
     } else {
       this[name] = angular.noop;
-      spyOn(this, name).and.returnValue(returnedValue);
+      spyOn(this, name).and.returnValue(returnedValue || this);
     }
+    return this;
   }
 };
 
