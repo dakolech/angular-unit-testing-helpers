@@ -28,7 +28,7 @@ window.TestServ.prototype = {
       spyOn(this, name).and.callThrough();
     } else {
       this[name] = angular.noop;
-      spyOn(this, name).and.returnValue(returnedValue || this);
+      spyOn(this, name).and.returnValue(returnedValue !== undefined ? returnedValue : this);
     }
     return this;
   }
