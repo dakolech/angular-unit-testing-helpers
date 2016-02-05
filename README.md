@@ -146,8 +146,9 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
       spyOn(this, name).and.callThrough();
     } else {
       this[name] = angular.noop;
-      spyOn(this, name).and.returnValue(returnedValue);
+      spyOn(this, name).and.returnValue(returnedValue !== undefined ? returnedValue : this);
     }
+    return this;
   }
   ```
 
@@ -180,6 +181,7 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
         _this[name].fail = fail;
       }
     });
+    return this;
   }
   ```
 
