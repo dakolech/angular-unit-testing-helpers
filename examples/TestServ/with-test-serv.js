@@ -1,4 +1,10 @@
-function someController(SomeService, Alerts) {
+jasmine.pp = function(obj) {
+  return JSON.stringify(obj, undefined, 2);
+}
+
+function someController(SomeService, Alerts, Some) {
+  var that = this;
+
   this.create = function(argument) {
     SomeService.create(argument).then(function(response) {
       Alerts.success('Created succesfully' + response.name)
@@ -9,9 +15,16 @@ function someController(SomeService, Alerts) {
 
   var someValue = 'Butterfly';
   this.butterfly = SomeService.modify(someValue);
+  this.flower = SomeService.flower();
+
+  Some.very('long').service('call').with('promise').then(function(response) {
+    that.value = response;
+  });
+
+  this.without = Some.very('long').service('call').without('promise');
 }
 
-someController.$inject = ['SomeService', 'Alerts'];
+someController.$inject = ['SomeService', 'Alerts', 'Some'];
 
 angular
 .module('controllerWithTestServ', [])
@@ -22,16 +35,23 @@ describe('someController', function() {
   var
     someController, $controller, $rootScope, $scope,
     mockedSomeService = new TestServ(),
-    mockedAlerts = new TestServ();
+    mockedAlerts = new TestServ(),
+    mockedSome = new TestServ()
+    responseValue = 'someValue',
+    withoutValue = 'someOtherValue';
 
   beforeEach(module('controllerWithTestServ'));
 
   beforeEach(function() {
-    //mocking promise
+    //mocking a promise
     mockedSomeService.addPromise('create');
     mockedSomeService.addMethod('modify', function(input) {return input});
+    mockedSomeService.addMethod('flower', 'rose');
     mockedAlerts.addMethod('success');
     mockedAlerts.addMethod('error');
+
+    mockedSome.addMethod('very').addMethod('service').addPromise('with');
+    mockedSome.addMethod('very').addMethod('service').addMethod('without', withoutValue);
   });
 
   beforeEach(function() {
@@ -43,7 +63,8 @@ describe('someController', function() {
     someController = $controller('someController', {
       $scope: $scope,
       SomeService: mockedSomeService,
-      Alerts: mockedAlerts
+      Alerts: mockedAlerts,
+      Some: mockedSome
     });
   });
 
@@ -53,6 +74,37 @@ describe('someController', function() {
 
   it('should bind someValue to this.butterfly', function() {
     expect(someController.butterfly).toBe('Butterfly');
+  });
+
+  it('should bind "rose" to this.flower', function() {
+    expect(someController.flower).toBe('rose');
+  });
+
+  it('should bind withoutValue to this.without', function() {
+    expect(someController.without).toBe(withoutValue);
+  });
+
+  it('should call without with "promise"', function() {
+    expect(mockedSome.without).toHaveBeenCalledWith('promise');
+  });
+
+  describe('Some very long call', function() {
+    it('should call very with "long"', function() {
+      expect(mockedSome.very).toHaveBeenCalledWith('long');
+    });
+
+    it('should call service with "call"', function() {
+      expect(mockedSome.service).toHaveBeenCalledWith('call');
+    });
+
+    it('should call with with "promise"', function() {
+      expect(mockedSome.with).toHaveBeenCalledWith('promise');
+    });
+
+    it('should bind response from promise to this.value', function() {
+      mockedSome.with.success(responseValue);
+      expect(someController.value).toBe(responseValue);
+    });
   });
 
   describe('create method', function() {

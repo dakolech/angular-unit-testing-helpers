@@ -1,4 +1,6 @@
-function someController(SomeService, Alerts) {
+function someController(SomeService, Alerts, Some) {
+  var that = this;
+
   this.create = function(argument) {
     SomeService.create(argument).then(function(response) {
       Alerts.success('Created succesfully' + response.name)
@@ -9,9 +11,16 @@ function someController(SomeService, Alerts) {
 
   var someValue = 'Butterfly';
   this.butterfly = SomeService.modify(someValue);
+  this.flower = SomeService.flower();
+
+  Some.very('long').service('call').with('promise').then(function(response) {
+    that.value = response;
+  });
+
+  this.without = Some.very('long').service('call').without('promise');
 }
 
-someController.$inject = ['SomeService', 'Alerts'];
+someController.$inject = ['SomeService', 'Alerts', 'Some'];
 
 angular
 .module('controllerWithoutTestServ', [])
@@ -23,6 +32,7 @@ describe('someController', function() {
     someController, $controller, $rootScope, $scope,
     mockedSomeService = {
       create: angular.noop,
+      flower: angular.noop,
       modify: function(input) {
         return input
       }
@@ -32,7 +42,34 @@ describe('someController', function() {
       error: angular.noop
     },
     successCallback,
-    failCallback;
+    failCallback,
+    responseValue = 'someValue',
+    withoutValue = 'someOtherValue',
+    veryArgument, serviceArgument, withArgument, withoutArgument, successCallbackSome,
+    mockedSome = {
+      very: function(veryArg) {
+        veryArgument = veryArg;
+        return {
+          service: function(serviceArg) {
+            serviceArgument = serviceArg;
+            return {
+              with: function(withArg) {
+                withArgument = withArg;
+                return {
+                  then: function(success) {
+                    successCallbackSome = success;
+                  }
+                }
+              },
+              without: function(withoutArg) {
+                withoutArgument = withoutArg;
+                return withoutValue;
+              }
+            }
+          }
+        }
+      }
+    };
 
   beforeEach(module('controllerWithoutTestServ'));
 
@@ -45,6 +82,7 @@ describe('someController', function() {
       }
     });
     spyOn(mockedSomeService, 'modify').and.callThrough();
+    spyOn(mockedSomeService, 'flower').and.returnValue('rose');
 
     spyOn(mockedAlerts, 'success');
     spyOn(mockedAlerts, 'error');
@@ -59,7 +97,8 @@ describe('someController', function() {
     someController = $controller('someController', {
       $scope: $scope,
       SomeService: mockedSomeService,
-      Alerts: mockedAlerts
+      Alerts: mockedAlerts,
+      Some: mockedSome
     });
   });
 
@@ -69,6 +108,37 @@ describe('someController', function() {
 
   it('should bind someValue to this.butterfly', function() {
     expect(someController.butterfly).toBe('Butterfly');
+  });
+
+  it('should bind "rose" to this.flower', function() {
+    expect(someController.flower).toBe('rose');
+  });
+
+  it('should bind withoutValue to this.without', function() {
+    expect(someController.without).toBe(withoutValue);
+  });
+
+  it('should call without with "promise"', function() {
+    expect(withoutArgument).toBe('promise');
+  });
+
+  describe('Some very long call', function() {
+    it('should call very with "long"', function() {
+      expect(veryArgument).toBe('long');
+    });
+
+    it('should call service with "call"', function() {
+      expect(serviceArgument).toBe('call');
+    });
+
+    it('should call with with "promise"', function() {
+      expect(withArgument).toBe('promise');
+    });
+
+    it('should bind response from promise to this.value', function() {
+      successCallbackSome(responseValue);
+      expect(someController.value).toBe(responseValue);
+    });
   });
 
   describe('create method', function() {
