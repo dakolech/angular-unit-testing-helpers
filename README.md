@@ -128,6 +128,14 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   `addMethod` will add an empty function to the someService at `name` value and also create spyOn on this created method. spyOn will return `returnedValue`.
   `returnedValue` can be undefined, a value, an object or a function.
+  You can also construct chaining methods calls, for example:
+
+  ```javascript
+  var someService = new TestServ();
+  someService.addMethod('firstMethod').addMethod('secondMethod').addMethod('thirdMethod');
+  ```
+
+  More in examples.
 
   Implementation:
 
@@ -154,6 +162,12 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
 
   `addPromise` will add an empty function to the someService at `name` value and also create spyOn on this created method. Same as `addMethod`.
   But spyOn will return object with `then` property, which will become a function. aThis function will bind two arguments to `success` and `error` property of `someService[name]`. So to call success promise you will simply call `someService[name].success()` and for failure promise `someService[name].fail`. You can also call this function with arguments (`someService[name].success('someString')`), so when you call this `someService[name].then(function(response) { console.log(response)}), response will become `'someString'`.
+  You can also construct chaining methods calls, for example:
+
+  ```javascript
+  var someService = new TestServ();
+  someService.addMethod('firstMethod').addMethod('secondMethod').addPromise('promise');
+  ```
 
   Implementation:
   ```javascript
