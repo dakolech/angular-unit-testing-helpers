@@ -201,8 +201,8 @@ window.TestDummy = {
 window.TestFactory = {
   define: function(name, attributes) {
     if (!this.models) {
-      this.models = {}
-    };
+      this.models = {};
+    }
     this.models[name] = attributes;
   },
 
@@ -244,7 +244,7 @@ window.TestFactory = {
           }
         }
       }
-    };
+    }
 
     for (var property in model) {
       if (model.hasOwnProperty(property) && typeof model !== 'function' && typeof model[property] === 'function') {
@@ -258,7 +258,7 @@ window.TestFactory = {
       } else {
         list.push(angular.copy(model));
       }
-    };
+    }
 
     list = list.map(function(item) {
       for (var property in item) {
@@ -284,14 +284,14 @@ window.TestFactory = {
       iterator = argOne ? argOne : 1;
       callback = function(value) {
         return value;
-      }
+      };
     }
 
     this.seq[name] = {
       value: 0,
       callback: callback,
       iterator: iterator
-    }
+    };
   },
 
   sequence: function(name) {
@@ -300,11 +300,11 @@ window.TestFactory = {
       var returnedObject = function() {
         _this.seq[name].value += _this.seq[name].iterator;
         return _this.seq[name].callback(_this.seq[name].value);
-      }
+      };
 
       returnedObject.clear = function() {
-        _this.seq[name].value = 0
-      }
+        _this.seq[name].value = 0;
+      };
 
       return returnedObject;
     }
@@ -321,7 +321,3 @@ window.TestModule.prototype = {
     return this.deps.indexOf(name) >= 0;
   }
 };
-
-
-
-
