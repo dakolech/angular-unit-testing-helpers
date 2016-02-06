@@ -207,20 +207,22 @@ window.TestFactory = {
   },
 
   create: function(name, attributes) {
-    var model = angular.copy(this.models[name]);
+    var
+      model = angular.copy(this.models[name]),
+      property;
     if (model) {
       if (typeof model === 'function') {
         model = model();
       } else {
         if (attributes) {
-          for (var property in attributes) {
+          for (property in attributes) {
             if (attributes.hasOwnProperty(property)) {
               model[property] = attributes[property];
             }
           }
         }
 
-        for (var property in model) {
+        for (property in model) {
           if (model.hasOwnProperty(property) && typeof model[property] === 'function') {
             model[property] = model[property]();
           }
@@ -234,11 +236,12 @@ window.TestFactory = {
     var
       model = angular.copy(this.models[name]),
       list = [],
-      i = 0;
+      i = 0,
+      property;
 
     if (model) {
       if (attributes) {
-        for (var property in attributes) {
+        for (property in attributes) {
           if (attributes.hasOwnProperty(property)) {
             model[property] = attributes[property];
           }
@@ -246,7 +249,7 @@ window.TestFactory = {
       }
     }
 
-    for (var property in model) {
+    for (property in model) {
       if (model.hasOwnProperty(property) && typeof model !== 'function' && typeof model[property] === 'function') {
         model[property].clear();
       }
