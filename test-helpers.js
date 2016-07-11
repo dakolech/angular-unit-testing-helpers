@@ -31,6 +31,11 @@ window.TestServ.prototype = {
       spyOn(this, name).and.returnValue(returnedValue !== undefined ? returnedValue : this);
     }
     return this;
+  },
+
+  addProperty: function(name, returnedValue) {
+    this[name] = returnedValue;
+    return this;
   }
 };
 
