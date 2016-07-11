@@ -329,3 +329,11 @@ window.TestModule.prototype = {
     return this.deps.indexOf(name) >= 0;
   }
 };
+
+module.exports = {
+  TestServ: window.TestServ,
+  TestElement: window.TestElement,
+  TestDummy: window.TestDummy,
+  TestFactory: window.TestFactory,
+  TestModule: window.TestModule
+};
