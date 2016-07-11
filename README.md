@@ -12,6 +12,7 @@
     - [TestServ contructor](#testserv-contructor)
     - [addMethod](#addmethod)
     - [addPromise](#addpromise)
+    - [addProperty](#addproperty)
   - [TestServ examples](#testserv-examples)
   - [TestElement documentation](#testelement-documentation)
     - [TestElement contructor](#testelement-contructor)
@@ -181,6 +182,32 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
         _this[name].fail = fail;
       }
     });
+    return this;
+  }
+  ```
+
+### addProperty:
+
+  ```javascript
+  var someService = new TestServ();
+  someService.addProperty(name, returnedValue);
+  ```
+
+  `addProperty` will add a property to the someService with returnedValue as a value.
+  You can also construct chaining methods calls, for example:
+
+  ```javascript
+  var someService = new TestServ();
+  someService.addProperty('someProperty', propertyValue).addProperty('someOtherProperty', otherPropertyValue);
+  ```
+
+  More in examples.
+
+  Implementation:
+
+  ```javascript
+  addProperty: function(name, returnedValue) {
+    this[name] = returnedValue;
     return this;
   }
   ```
