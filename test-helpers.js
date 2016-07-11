@@ -337,3 +337,9 @@ module.exports = {
   TestFactory: window.TestFactory,
   TestModule: window.TestModule
 };
+
+exports.TestServ = window.TestServ;
+exports.TestElement = window.TestElement;
+exports.TestDummy = window.TestDummy;
+exports.TestFactory = window.TestFactory;
+exports.TestModule = window.TestModule;
