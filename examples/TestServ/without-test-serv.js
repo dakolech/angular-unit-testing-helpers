@@ -18,6 +18,8 @@ function someController(SomeService, Alerts, Some) {
   });
 
   this.without = Some.very('long').service('call').without('promise');
+
+  this.property = Some.short('chain').withProperty;
 }
 
 someController.$inject = ['SomeService', 'Alerts', 'Some'];
@@ -45,7 +47,9 @@ describe('someController', function() {
     failCallback,
     responseValue = 'someValue',
     withoutValue = 'someOtherValue',
+    withPropertyValue = 'someProperty',
     veryArgument, serviceArgument, withArgument, withoutArgument, successCallbackSome,
+    shortArgument,
     mockedSome = {
       very: function(veryArg) {
         veryArgument = veryArg;
@@ -67,6 +71,12 @@ describe('someController', function() {
               }
             }
           }
+        }
+      },
+      short: function(shortArg) {
+        shortArgument = shortArg
+        return {
+          withProperty: withPropertyValue
         }
       }
     };
@@ -138,6 +148,16 @@ describe('someController', function() {
     it('should bind response from promise to this.value', function() {
       successCallbackSome(responseValue);
       expect(someController.value).toBe(responseValue);
+    });
+  });
+
+  describe('Some short call', function() {
+    it('should call very with "chain"', function() {
+      expect(shortArgument).toBe('chain');
+    });
+
+    it('should set withProperty to the property', function() {
+      expect(someController.property).toBe(withPropertyValue);
     });
   });
 

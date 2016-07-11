@@ -22,6 +22,8 @@ function someController(SomeService, Alerts, Some) {
   });
 
   this.without = Some.very('long').service('call').without('promise');
+
+  this.property = Some.short('chain').withProperty;
 }
 
 someController.$inject = ['SomeService', 'Alerts', 'Some'];
@@ -38,7 +40,8 @@ describe('someController', function() {
     mockedAlerts = new TestServ(),
     mockedSome = new TestServ()
     responseValue = 'someValue',
-    withoutValue = 'someOtherValue';
+    withoutValue = 'someOtherValue',
+    withPropertyValue = 'someProperty';
 
   beforeEach(module('controllerWithTestServ'));
 
@@ -52,6 +55,7 @@ describe('someController', function() {
 
     mockedSome.addMethod('very').addMethod('service').addPromise('with');
     mockedSome.addMethod('very').addMethod('service').addMethod('without', withoutValue);
+    mockedSome.addMethod('short').addProperty('withProperty', withPropertyValue);
   });
 
   beforeEach(function() {
@@ -104,6 +108,16 @@ describe('someController', function() {
     it('should bind response from promise to this.value', function() {
       mockedSome.with.success(responseValue);
       expect(someController.value).toBe(responseValue);
+    });
+  });
+
+  describe('Some short call', function() {
+    it('should call very with "chain"', function() {
+      expect(mockedSome.short).toHaveBeenCalledWith('chain');
+    });
+
+    it('should set withProperty to the property', function() {
+      expect(someController.property).toBe(withPropertyValue);
     });
   });
 
