@@ -330,16 +330,20 @@ window.TestModule.prototype = {
   }
 };
 
-module.exports = {
-  TestServ: window.TestServ,
-  TestElement: window.TestElement,
-  TestDummy: window.TestDummy,
-  TestFactory: window.TestFactory,
-  TestModule: window.TestModule
-};
+if (typeof module === 'object') {
+  module.exports = {
+    TestServ: window.TestServ,
+    TestElement: window.TestElement,
+    TestDummy: window.TestDummy,
+    TestFactory: window.TestFactory,
+    TestModule: window.TestModule
+  };
+}
 
-exports.TestServ = window.TestServ;
-exports.TestElement = window.TestElement;
-exports.TestDummy = window.TestDummy;
-exports.TestFactory = window.TestFactory;
-exports.TestModule = window.TestModule;
+if (typeof exports === 'object') {
+  exports.TestServ = window.TestServ;
+  exports.TestElement = window.TestElement;
+  exports.TestDummy = window.TestDummy;
+  exports.TestFactory = window.TestFactory;
+  exports.TestModule = window.TestModule;
+}
