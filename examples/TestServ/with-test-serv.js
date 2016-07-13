@@ -98,7 +98,7 @@ describe('someController', function() {
     });
 
     it('should call service with "call"', function() {
-      expect(mockedSome.service).toHaveBeenCalledWith('call');
+      expect(mockedSome.get('service')).toHaveBeenCalledWith('call');
     });
 
     it('should call with with "promise"', function() {

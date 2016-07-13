@@ -212,6 +212,28 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   }
   ```
 
+### get:
+
+  ```javascript
+  var someService = new TestServ();
+  someService.get(name);
+  ```
+
+  `get` will return property from a created service. You can use direct propery call (someService.name), this method is useful with typescript. More in typescript chapter.
+
+  ```javascript
+  someService.get(name) === someService.name;
+  ```
+
+  Implementation:
+
+  ```javascript
+  get: function(name) {
+    return this[name];
+  }
+  ```
+
+
 **[Back to top](#table-of-contents)**
 
 ## TestServ examples

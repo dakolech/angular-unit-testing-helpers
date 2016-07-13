@@ -36,6 +36,10 @@ window.TestServ.prototype = {
   addProperty: function(name, returnedValue) {
     this[name] = returnedValue;
     return this;
+  },
+
+  get: function(name) {
+    return this[name];
   }
 };
 
