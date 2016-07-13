@@ -10,6 +10,7 @@ script:
   -  npm run-script test-travis
 before_script:
   - npm install
+  - typings install
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
