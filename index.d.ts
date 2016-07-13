@@ -1,18 +1,24 @@
-import './typings/globals/angular/index.d.ts';
+import './typings/index.d.ts';
 
 interface TestServInterface {
   new(serviceName: string): TestServInstance;
   new(): any;
 }
 
+export interface TestServPromise {
+    success(arg?: any): any;
+    fail(arg?: any): any;
+}
+
 interface TestServInstance {
   addPromise(name: string): TestServInstance;
-  addMethod(name: string): TestServInstance;
-  addProperty(name: string): TestServInstance;
+  addMethod(name: string, returnedValue: any): TestServInstance;
+  addMethod<T>(name: string, fn: (...args: any[]) => T): TestServInstance;
+  addProperty(name: string, returnedValue: any): TestServInstance;
+  get<T>(name: string): T;
 }
 
 export var TestServ: TestServInterface;
-
 
 interface ControllerInstance {}
 
@@ -37,11 +43,11 @@ interface TestElementInstance {
   $filter: ng.IFilterService;
 
   name: string;
-  createCtrl(name: string, services?: any): ControllerInstance;
+  createCtrl<T>(name: string, services?: any): T;
   addTemplate(path: string, ctrlAs?: string): ng.IAugmentedJQuery;
   createDirective: createDirComp;
   createComponent: createDirComp;
-  createFilter(name: string): ng.IFilterService;
+  createFilter<T>(name: string): T;
 
   scope: ng.IScope;
   ctrl: any;
@@ -71,9 +77,12 @@ interface TestDummyInterface {
 
 export var TestDummy: TestDummyInterface;
 
-interface TestModuleInterface {
-  new(name: string): ng.IModule;
+interface TestModuleInstance {
   hasModule(name: string): boolean;
+}
+
+interface TestModuleInterface {
+  new(name: string): TestModuleInstance;
 }
 
 export var TestModule: TestModuleInterface;
@@ -85,9 +94,12 @@ interface SequenceInterface {
 
 interface TestFactoryInterface {
   define(name: string, attributes: any): void;
-  create(name: string, attributes: any): any;
-  createList(name: string, number: number, attributes: any): any[];
-  defineSequence(name: string, argOne: any, argTwo: any): void;
+  create<T>(name: string, attributes?: T): T;
+  createList<T>(name: string, number: number, attributes?: any): T[];
+  defineSequence(name: string): void;
+  defineSequence(name: string, argOne: number): void;
+  defineSequence(name: string, argOne: Function): void;
+  defineSequence<T>(name: string, argOne: (arg: T) => any, argTwo: T): void;
   sequence(name: string): SequenceInterface;
 }
 
