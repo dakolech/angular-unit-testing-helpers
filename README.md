@@ -95,6 +95,14 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   npm install typings
   ```
 
+  1. Have installed angular, angular-mocks and jquery typings
+
+  ```
+  typings install dt~jquery --save --global
+  typings install dt~angular --save --global
+  typings install dt~angular-mocks --save --global
+  ```
+
   1. Have installed typings in angular-unit-testing-helpers
 
   ```
