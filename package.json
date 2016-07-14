@@ -1,6 +1,6 @@
 {
   "name": "angular-unit-testing-helpers",
-  "version": "0.0.11",
+  "version": "0.1.0",
   "description": "A collection of helper functions for writing AngularJS unit tests.",
   "main": "index.js",
   "scripts": {
