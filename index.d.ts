@@ -1,4 +1,6 @@
-import './typings/index.d.ts';
+/// <reference path="typings/globals/jquery/index.d.ts" />
+/// <reference path="typings/globals/angular/index.d.ts" />
+/// <reference path="typings/globals/angular-mocks/index.d.ts" />
 
 interface TestServInterface {
   new(serviceName: string): TestServInstance;
