@@ -4,7 +4,7 @@
   "description": "A collection of helper functions for writing AngularJS unit tests.",
   "main": "index.js",
   "scripts": {
-    "test:types": "./node_modules/typescript/bin/tsc test/types/*.ts --noEmit --listFiles",
+    "test:types": "./node_modules/typescript/bin/tsc --noEmit --listFiles",
     "test": "./node_modules/karma/bin/karma start",
     "test-travis": "./node_modules/karma/bin/karma start --single-run --browsers=Chrome_travis_ci,Firefox,PhantomJS && npm run test:types"
   },
