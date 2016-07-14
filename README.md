@@ -8,6 +8,7 @@
   - [Why?](#why)
   - [Features](#features)
   - [Installation](#installation)
+  - [TypeScript](#typescript)
   - [TestServ documentation](#testserv-documentation)
     - [TestServ contructor](#testserv-contructor)
     - [addMethod](#addmethod)
@@ -80,6 +81,24 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
     'bower_components/angular-unit-testing-helpers/test-helpers.js',
     ...
   ],
+  ```
+
+**[Back to top](#table-of-contents)**
+
+## TypeScript:
+
+  You can use this library with TypeScript. All you need to do:
+
+  1. Have typings installed (1.x):
+
+  ```
+  npm install typings
+  ```
+
+  1. Have installed typings in angular-unit-testing-helpers
+
+  ```
+  typings install npm:angular-unit-testing-helpers
   ```
 
 **[Back to top](#table-of-contents)**
