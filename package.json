@@ -41,6 +41,6 @@
   },
   "files": [
     "typings.json",
-    "typings/**/*"
+    "typings"
   ]
 }
