@@ -1,0 +1,728 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>angular-unit-testing-helpers</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script src="assets/js/modernizr.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">angular-unit-testing-helpers</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> angular-unit-testing-helpers</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://travis-ci.org/dakolech/angular-unit-testing-helpers"><img src="https://travis-ci.org/dakolech/angular-unit-testing-helpers.svg?branch=master" alt="Build Status"></a>
+				<a href="https://david-dm.org/dakolech/angular-unit-testing-helpers#info=devDependencies"><img src="https://david-dm.org/dakolech/angular-unit-testing-helpers/dev-status.svg" alt="devDependency Status"></a></p>
+				<h1 id="angular-unit-testing-helpers">Angular Unit Testing Helpers</h1>
+				<h2 id="table-of-contents">Table of Contents</h2>
+				<ul>
+					<li><a href="#why">Why?</a></li>
+					<li><a href="#features">Features</a></li>
+					<li><a href="#installation">Installation</a></li>
+					<li><a href="#typescript">TypeScript</a></li>
+					<li><a href="#testserv-documentation">TestServ documentation</a><ul>
+							<li><a href="#testserv-contructor">TestServ contructor</a></li>
+							<li><a href="#addmethod">addMethod</a></li>
+							<li><a href="#addpromise">addPromise</a></li>
+							<li><a href="#addproperty">addProperty</a></li>
+						</ul>
+					</li>
+					<li><a href="#testserv-examples">TestServ examples</a></li>
+					<li><a href="#testelement-documentation">TestElement documentation</a><ul>
+							<li><a href="#testelement-contructor">TestElement contructor</a></li>
+							<li><a href="#createctrl">createCtrl</a></li>
+							<li><a href="#addtemplate">addTemplate</a></li>
+							<li><a href="#createdirective">createDirective</a></li>
+							<li><a href="#createcomponent">createComponent</a></li>
+							<li><a href="#createfilter">createFilter</a></li>
+							<li><a href="#get-scope">get scope</a></li>
+							<li><a href="#get-ctrl">get ctrl</a></li>
+							<li><a href="#get-dom">get dom</a></li>
+							<li><a href="#find">find</a></li>
+							<li><a href="#findall">findAll</a></li>
+							<li><a href="#destroy">destroy</a></li>
+							<li><a href="#clickon">clickOn</a></li>
+							<li><a href="#inputon">inputOn</a></li>
+						</ul>
+					</li>
+					<li><a href="#testelement-examples">TestElement examples</a></li>
+					<li><a href="#testmodule-documentation">TestModule documentation</a><ul>
+							<li><a href="#hasmodule">hasModule</a></li>
+						</ul>
+					</li>
+					<li><a href="#testmodule-examples">TestModule examples</a></li>
+					<li><a href="#testfactory-documentation">TestFactory documentation</a><ul>
+							<li><a href="#define">define</a></li>
+							<li><a href="#create">create</a></li>
+							<li><a href="#createlist">createList</a></li>
+							<li><a href="#definesequence">defineSequence</a></li>
+							<li><a href="#sequence">sequence</a></li>
+						</ul>
+					</li>
+					<li><a href="#testfactory-examples">TestFactory examples</a></li>
+					<li><a href="#testdummy-documentation">TestDummy documentation</a><ul>
+							<li><a href="#filter">filter</a></li>
+							<li><a href="#directive">directive</a></li>
+						</ul>
+					</li>
+					<li><a href="#dummy-examples">Dummy examples</a></li>
+				</ul>
+				<h2 id="why-">Why?</h2>
+				<p>I&#39;ve created this package to simplify unit testing in AngularJS apps. I had enough of writing repeated code. For every spec (controller, directive, service) I had to write the same injector and compile blocks of code, for every mocked service I had to write the same lines. With this package, everything becomes easier and faster.</p>
+				<h2 id="features">Features</h2>
+				<p>All selectors are using native Javascript <code>querySelector</code> or <code>querySelectorAll</code>, so <code>jQuery</code> is not requierd.</p>
+				<h2 id="installation-">Installation:</h2>
+				<ol>
+					<li><p>Download package:</p>
+						<pre><code>npm <span class="hljs-keyword">install</span> angular-unit-testing-helpers
+</code></pre><p>or</p>
+						<pre><code><span class="hljs-keyword">bower </span><span class="hljs-keyword">install </span>angular-unit-testing-helpers
+</code></pre></li>
+					<li><p>Inject it to <code>karma.conf.js</code></p>
+						<pre><code class="lang-javascript">files: [
+<span class="hljs-string">'node_modules/angular-unit-testing-helpers/test-helpers.js'</span>,
+...
+],
+</code></pre>
+						<p>or</p>
+						<pre><code class="lang-javascript">files: [
+<span class="hljs-string">'bower_components/angular-unit-testing-helpers/test-helpers.js'</span>,
+...
+],
+</code></pre>
+					</li>
+				</ol>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="typescript-">TypeScript:</h2>
+				<p>  You can use this library with TypeScript. All you need to do:</p>
+				<ol>
+					<li><p>Have typings installed (1.x):</p>
+						<pre><code>npm <span class="hljs-keyword">install</span> typings
+</code></pre></li>
+					<li><p>Have installed angular, angular-mocks and jquery typings</p>
+						<pre><code><span class="hljs-comment">typings</span> <span class="hljs-comment">install</span> <span class="hljs-comment">dt~jquery</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">save</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">global</span>
+<span class="hljs-comment">typings</span> <span class="hljs-comment">install</span> <span class="hljs-comment">dt~angular</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">save</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">global</span>
+<span class="hljs-comment">typings</span> <span class="hljs-comment">install</span> <span class="hljs-comment">dt~angular</span><span class="hljs-literal">-</span><span class="hljs-comment">mocks</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">save</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">global</span>
+</code></pre></li>
+					<li><p>Have installed typings in angular-unit-testing-helpers</p>
+						<pre><code>typings <span class="hljs-keyword">install</span> npm:angular-unit-testing-helpers
+</code></pre></li>
+				</ol>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testserv-documentation">TestServ documentation</h2>
+				<h3 id="testserv-contructor-">TestServ contructor:</h3>
+				<p>  Without an argument:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">new</span> TestServ()
+</code></pre>
+				<p>  It will create an empty object;</p>
+				<p>  With an argument:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">new</span> TestServ(<span class="hljs-string">'$q'</span>);
+</code></pre>
+				<p>  It will return real <code>$q</code> service;</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-built_in">window</span>.TestServ = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">if</span> (!!name) {
+      inject([name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">service</span>) </span>{
+        _this = service;
+      }]);
+      <span class="hljs-keyword">return</span> _this;
+    }
+  };
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="addmethod-">addMethod:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.addMethod(name, returnedValue);
+</code></pre>
+				<p>  <code>addMethod</code> will add an empty function to the someService at <code>name</code> value and also create spyOn on this created method. spyOn will return <code>returnedValue</code>.
+					<code>returnedValue</code> can be undefined, a value, an object or a function.
+				You can also construct chaining methods calls, for example:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.addMethod(<span class="hljs-string">'firstMethod'</span>).addMethod(<span class="hljs-string">'secondMethod'</span>).addMethod(<span class="hljs-string">'thirdMethod'</span>);
+</code></pre>
+				<p>  More in examples.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  addMethod: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, returnedValue</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> returnedValue === <span class="hljs-string">"function"</span> ) {
+      <span class="hljs-keyword">this</span>[name] = returnedValue;
+      spyOn(<span class="hljs-keyword">this</span>, name).and.callThrough();
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">this</span>[name] = angular.noop;
+      spyOn(<span class="hljs-keyword">this</span>, name).and.returnValue(returnedValue !== <span class="hljs-literal">undefined</span> ? returnedValue : <span class="hljs-keyword">this</span>);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="addpromise-">addPromise:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.addPromise(name);
+</code></pre>
+				<p>  <code>addPromise</code> will add an empty function to the someService at <code>name</code> value and also create spyOn on this created method. Same as <code>addMethod</code>.
+					But spyOn will return object with <code>then</code> property, which will become a function. aThis function will bind two arguments to <code>success</code> and <code>error</code> property of <code>someService[name]</code>. So to call success promise you will simply call <code>someService[name].success()</code> and for failure promise <code>someService[name].fail</code>. You can also call this function with arguments (<code>someService[name].success(&#39;someString&#39;)</code>), so when you call this <code>someService[name].then(function(response) { console.log(response)}), response will become</code>&#39;someString&#39;`.
+				You can also construct chaining methods calls, for example:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.addMethod(<span class="hljs-string">'firstMethod'</span>).addMethod(<span class="hljs-string">'secondMethod'</span>).addPromise(<span class="hljs-string">'promise'</span>);
+</code></pre>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  addPromise: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>;
+    _this[name] = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{};
+    spyOn(_this, name).and.returnValue({
+      then: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">success, fail</span>) </span>{
+        _this[name].success = success;
+        _this[name].fail = fail;
+      }
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+</code></pre>
+				<h3 id="addproperty-">addProperty:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.addProperty(name, returnedValue);
+</code></pre>
+				<p>  <code>addProperty</code> will add a property to the someService with returnedValue as a value.
+				You can also construct chaining methods calls, for example:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.addProperty(<span class="hljs-string">'someProperty'</span>, propertyValue).addProperty(<span class="hljs-string">'someOtherProperty'</span>, otherPropertyValue);
+</code></pre>
+				<p>  More in examples.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  addProperty: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, returnedValue</span>) </span>{
+    <span class="hljs-keyword">this</span>[name] = returnedValue;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+</code></pre>
+				<h3 id="get-">get:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someService = <span class="hljs-keyword">new</span> TestServ();
+  someService.get(name);
+</code></pre>
+				<p>  <code>get</code> will return property from a created service. You can use direct propery call (someService.name), this method is useful with typescript. More in typescript chapter.</p>
+				<pre><code class="lang-javascript">  someService.get(name) === someService.name;
+</code></pre>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[name];
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testserv-examples">TestServ examples</h2>
+				<p>  <a href="examples/TestServ">TestServ examples</a></p>
+				<h2 id="testelement-documentation">TestElement documentation</h2>
+				<h3 id="testelement-contructor-">TestElement contructor:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">new</span> TestElement();
+</code></pre>
+				<p>  It will create an object, which will contain some angular services: <code>$rootScope</code>, <code>$compile</code>, <code>$timeout</code>, <code>$controller</code>, <code>$templateCache</code>;</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-built_in">window</span>.TestElement = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>;
+    inject(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $compile, $timeout, $controller, $templateCache, $filter</span>) </span>{
+      _this._$scope = $rootScope.$<span class="hljs-keyword">new</span>();
+      _this.$originalScope = $rootScope.$<span class="hljs-keyword">new</span>();
+      _this.$compile = $compile;
+      _this.$timeout = $timeout;
+      _this.$controller = $controller;
+      _this.$templateCache = $templateCache;
+      _this.$filter = $filter;
+    });
+    <span class="hljs-keyword">this</span>.name = <span class="hljs-string">''</span>;
+  };
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="createctrl-">createCtrl:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> element, someController, services = {
+    someSrevice: mockedSomeService
+  };
+  element = <span class="hljs-keyword">new</span> TestElement();
+  someController = element.createCtrl(name, services);
+</code></pre>
+				<p>  <code>createCtrl</code> will create and return a controller with &#39;name&#39; and services object. You don&#39;t need to inject <code>$scope</code> into <code>services</code> method, it&#39;s injected by default if services.$scope doesn&#39;t exists.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  createCtrl: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, services</span>) </span>{
+    <span class="hljs-keyword">if</span> (!services) {
+      services = {};
+    }
+    <span class="hljs-keyword">if</span> (!services.$scope) {
+      services.$scope = <span class="hljs-keyword">this</span>._$scope;
+    }
+    <span class="hljs-keyword">this</span>._ctrl = <span class="hljs-keyword">this</span>.$controller(name, services);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._ctrl;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="addtemplate-">addTemplate:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> element;
+  element = <span class="hljs-keyword">new</span> TestElement();
+  element.createCtrl(name);
+  element.addTemplate(path, ctrlAs);
+</code></pre>
+				<p>  <code>addTemplate</code> will create and return an angular element with current $scope. <code>path</code> is a path to the template that is stored in $templateCache. ctrlAs is an optional argument. If you are using <code>controllerAs</code> syntax, then <code>ctrlAs</code> should be the value of <code>controllerAs</code> property.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  addTemplate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path, ctrlAs</span>) </span>{
+    <span class="hljs-keyword">var</span> template;
+    template = <span class="hljs-keyword">this</span>.$templateCache.get(path);
+    <span class="hljs-keyword">this</span>._el = angular.element(template);
+
+    <span class="hljs-keyword">if</span> (!!ctrlAs) {
+      <span class="hljs-keyword">this</span>._$scope[ctrlAs] = <span class="hljs-keyword">this</span>._ctrl;
+    }
+
+    <span class="hljs-keyword">this</span>.$compile(<span class="hljs-keyword">this</span>._el)(<span class="hljs-keyword">this</span>._$scope);
+    <span class="hljs-keyword">this</span>._$scope.$digest();
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">this</span>.$timeout.verifyNoPendingTasks();
+    } <span class="hljs-keyword">catch</span> (e) {
+      <span class="hljs-keyword">this</span>.$timeout.flush();
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._el;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="createdirective-">createDirective:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> element;
+  element = <span class="hljs-keyword">new</span> TestElement();
+  element.createDirective(name, html, scope);
+</code></pre>
+				<p>  <code>createDirective</code> will create and return an angular element with with <code>html</code> and <code>scope</code>. <code>name</code> is a name of the directive, <code>html</code> is a string and <code>scope</code> is an object, e. g.: <code>name = &#39;someDirective&#39;, html = &#39;&lt;some-directive attribute=&quot;someValue&quot;&gt;&lt;/some-directive&gt;&#39;; scope = { someValue: 123 };</code>.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  createDirective: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, html, scope</span>) </span>{
+    <span class="hljs-keyword">this</span>.name = name;
+    <span class="hljs-keyword">this</span>._$scope = angular.extend(<span class="hljs-keyword">this</span>.$originalScope, scope);
+    <span class="hljs-keyword">this</span>._el = <span class="hljs-keyword">this</span>.$compile(elem)(<span class="hljs-keyword">this</span>._$scope);
+    <span class="hljs-keyword">this</span>._$scope.$digest();
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">this</span>.$timeout.verifyNoPendingTasks();
+    } <span class="hljs-keyword">catch</span> (e) {
+      <span class="hljs-keyword">this</span>.$timeout.flush();
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._el;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="createcomponent-">createComponent:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> element;
+  element = <span class="hljs-keyword">new</span> TestElement();
+  element.createComponent(name, html, scope);
+</code></pre>
+				<p>  <code>createComponent</code> is an alias to createDirective method.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  createComponent: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, html, scope</span>) </span>{
+    <span class="hljs-keyword">this</span>.createDirective(name, html, scope);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._el;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="createfilter-">createFilter:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> filter;
+  filter = <span class="hljs-keyword">new</span> TestElement().createFilter(name);
+</code></pre>
+				<p>  <code>createFilter</code> will return filter with given name.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  createFilter: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$filter(name);
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="get-scope-">get scope:</h3>
+				<pre><code class="lang-javascript">  element.scope
+</code></pre>
+				<p>  <code>scope</code> will return current scope of the element.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  get scope() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._ctrl ?
+      <span class="hljs-keyword">this</span>._$scope : <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.dom.children()).length ?
+        <span class="hljs-keyword">this</span>.dom.children().scope() : <span class="hljs-keyword">this</span>.dom.scope();
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="get-ctrl-">get ctrl:</h3>
+				<pre><code class="lang-javascript">  element.ctrl
+</code></pre>
+				<p>  <code>ctrl</code> will return controller created with <code>createCtrl</code> method or controller created with <code>createDirective</code> method.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  get ctrl() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._ctrl ? <span class="hljs-keyword">this</span>._ctrl : angular.element(<span class="hljs-keyword">this</span>._el).controller(<span class="hljs-keyword">this</span>.name);
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="get-dom-">get dom:</h3>
+				<pre><code class="lang-javascript">  element.dom
+</code></pre>
+				<p>  <code>dom</code> will return current angular element of the template created with <code>addTemplate</code> or the directive created with <code>createDirective</code>.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  get dom() {
+    <span class="hljs-keyword">return</span> angular.element(<span class="hljs-keyword">this</span>._el);
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="find-">find:</h3>
+				<pre><code class="lang-javascript">  element.find(selector)
+</code></pre>
+				<p>  <code>find</code> will return found angular element with <code>selector</code>.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  find: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">selector</span>) </span>{
+    <span class="hljs-keyword">return</span> angular.element(<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelector(selector));
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="findall-">findAll:</h3>
+				<pre><code class="lang-javascript">  element.findAll()
+</code></pre>
+				<p>  <code>findAll</code> will return all found angular elements with <code>selector</code> as an array.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  findAll: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">selector</span>) </span>{
+    <span class="hljs-keyword">var</span> htmlObject = <span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelectorAll(selector);
+    <span class="hljs-keyword">var</span> returnedArray = [];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> property <span class="hljs-keyword">in</span> htmlObject) {
+      <span class="hljs-keyword">if</span> (htmlObject.hasOwnProperty(property) &amp;&amp; <span class="hljs-keyword">typeof</span> htmlObject[property] !== <span class="hljs-string">'number'</span>) {
+        returnedArray.push(angular.element(htmlObject[property]));
+      }
+    }
+    <span class="hljs-keyword">return</span> returnedArray;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="destroy-">destroy:</h3>
+				<pre><code class="lang-javascript">  element.destroy()
+</code></pre>
+				<p>  <code>destroy</code> will destroy current element.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  destroy: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>._$scope.$destroy();
+    <span class="hljs-keyword">this</span>._el = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>._ctrl = <span class="hljs-literal">null</span>;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="clickon-">clickOn:</h3>
+				<pre><code class="lang-javascript">  element.clickOn(selector);
+</code></pre>
+				<p>  <code>clickOn</code> will click on element found with <code>selector</code> and make a <code>$scope.$digest()</code>. It returns a promise.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  clickOn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">selector</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelector(selector)) {
+      <span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelector(selector).click();
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].click();
+    }
+    <span class="hljs-keyword">this</span>._$scope.$digest();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._getFlushedThenable();
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="inputon-">inputOn:</h3>
+				<pre><code class="lang-javascript">  element.inputOn(selector, value, which);
+</code></pre>
+				<p>  <code>inputOn</code> will set value of the element found with <code>selector</code>, trigger a <code>input</code> handler and make <code>$scope.$digest()</code>. It returns a promise.
+				If you have many inputs with the same selector, then you can pass which input you want to react with by adding number as a third argument (0 is a first input). <code>which</code> is an optional argument.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  inputOn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">selector, value, which</span>) </span>{
+    <span class="hljs-keyword">if</span> (!which) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelector(selector)) {
+        angular.element(<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelector(selector)).val(value).triggerHandler(<span class="hljs-string">'input'</span>);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].tagName == <span class="hljs-string">'INPUT'</span>) {
+        <span class="hljs-keyword">this</span>._el.val(value).triggerHandler(<span class="hljs-string">'input'</span>);
+      }
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelectorAll(selector)[which]) {
+        angular.element(<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].querySelectorAll(selector)[which]).val(value).triggerHandler(<span class="hljs-string">'input'</span>);
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.dom[<span class="hljs-number">0</span>].tagName == <span class="hljs-string">'INPUT'</span>) {
+        <span class="hljs-keyword">this</span>._el.val(value).triggerHandler(<span class="hljs-string">'input'</span>);
+      }
+    }
+    <span class="hljs-keyword">this</span>._$scope.$digest();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._getFlushedThenable();
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testelement-examples">TestElement examples</h2>
+				<p>  <a href="examples/TestElement">TestElement examples</a></p>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testmodule-documentation">TestModule documentation</h2>
+				<h3 id="testmodule-contructor-">TestModule contructor:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">new</span> TestModule(name);
+</code></pre>
+				<p>  It will create an module object with given <code>name</code>;</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  <span class="hljs-built_in">window</span>.TestModule = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">this</span>.module = angular.module(name);
+    <span class="hljs-keyword">this</span>.deps = <span class="hljs-keyword">this</span>.module.value(name).requires;
+  };
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="hasmodule-">hasModule:</h3>
+				<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> someModule = <span class="hljs-keyword">new</span> TestModule(moduleName);
+  someModule.hasModule(dependencyModule);
+</code></pre>
+				<p>  <code>hasModule</code> will return <code>boolean</code> value: <code>true</code> if <code>moduleName</code> has  dependencyModule as a dependency and <code>false</code> if not.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  hasModule: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.deps.indexOf(name) &gt;= <span class="hljs-number">0</span>;
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testmodule-examples">TestModule examples</h2>
+				<p>  <a href="examples/TestModule">TestModule examples</a></p>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testfactory-documentation">TestFactory documentation</h2>
+				<h3 id="define-">define:</h3>
+				<pre><code class="lang-javascript">  TestFactory.define(name, attributes);
+</code></pre>
+				<p>  <code>define</code> will define a model with <code>attributes</code> for creating factories (it can be also a <code>sequence</code>). <code>name</code> should be unique. It should be called before any create action. The best solution is to define models in seperate folder and inject it at the beginning of the <code>karma.config</code> file (but after <code>test-helpers</code>).</p>
+				<p>  Example:</p>
+				<pre><code class="lang-javascript">  TestFactory.define(<span class="hljs-string">'user'</span>, {
+    name: <span class="hljs-string">'someName'</span>,
+    id: <span class="hljs-number">123</span>,
+    pet: {
+      type: <span class="hljs-string">'cat'</span>,
+      name: <span class="hljs-string">'Tom'</span>
+    },
+    friends: [<span class="hljs-string">'Neo'</span>, <span class="hljs-string">'Trinity'</span>, <span class="hljs-string">'Morfeus'</span>]
+  });
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="create-">create:</h3>
+				<pre><code class="lang-javascript">  TestFactory.create(name, attributes)
+</code></pre>
+				<p>  <code>create</code> will create an object with model named <code>name</code>. <code>attributes</code> are an optional argument, it overwrites default attributes defined with <code>define</code> method.</p>
+				<p>  Example:</p>
+				<pre><code class="lang-javascript">  user = TestFactory.create(<span class="hljs-string">'user'</span>, {
+    name: <span class="hljs-string">'John'</span>,
+    pet: {
+      name: <span class="hljs-string">'Jerry'</span>,
+      type: <span class="hljs-string">'mouse'</span>
+  });
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="createlist-">createList:</h3>
+				<pre><code class="lang-javascript">  TestFactory.createList(name, number, attributes)
+</code></pre>
+				<p>  <code>createList</code> will create an collection of object with model named <code>name</code>. <code>number</code> defines how many objects in collections should be added. <code>attributes</code> are an optional argument, it overwrites default attributes defined with <code>define</code> method.</p>
+				<p>  Example:</p>
+				<pre><code class="lang-javascript">  users = TestFactory.createList(<span class="hljs-string">'user'</span>, <span class="hljs-number">3</span>, {
+    name: <span class="hljs-string">'John'</span>,
+    pet: {
+      name: <span class="hljs-string">'Jerry'</span>,
+      type: <span class="hljs-string">'mouse'</span>
+  });
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="definesequence-">defineSequence:</h3>
+				<pre><code class="lang-javascript">  TestFactory.defineSequence(name, argOne, argTwo)
+</code></pre>
+				<p>  <code>defineSequence</code> will define a model with <code>attributes</code> for creating factories. <code>name</code> should be unique. It should be called before any sequence call. <code>argOne</code> can be iterator or function.</p>
+				<p>  Example:</p>
+				<pre><code class="lang-javascript">  TestFactory.defineSequence(<span class="hljs-string">'simpleSeq'</span>); <span class="hljs-comment">// =&gt; 1,2,3...</span>
+  TestFactory.defineSequence(<span class="hljs-string">'seqWithIterator'</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// =&gt; 4,8,12...</span>
+  TestFactory.defineSequence(<span class="hljs-string">'seqWithFunction'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'Name '</span> + value;
+  }); <span class="hljs-comment">// =&gt; 'Name 1', 'Name 2', 'Name 3'...</span>
+  TestFactory.defineSequence(<span class="hljs-string">'seqWithFunctionAndIterator'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'Age '</span> + value;
+  }, <span class="hljs-number">5</span>); <span class="hljs-comment">// =&gt; 'Age 5', 'Age 10', 'Age 15'...</span>
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="sequence-">sequence:</h3>
+				<pre><code class="lang-javascript">  TestFactory.sequence(name);
+  TestFactory.sequence(name);
+</code></pre>
+				<p>  <code>sequence</code> returns a function. When you call it, then sequnce will increment. When you call <code>clear</code> method on it, then sequnce will be cleared to default value;</p>
+				<p>  Example:</p>
+				<pre><code class="lang-javascript">  TestFactory.defineSequence(<span class="hljs-string">'simpleSeq'</span>);
+  TestFactory.sequence(<span class="hljs-string">'simpleSeq'</span>)(); <span class="hljs-comment">// =&gt; 1</span>
+  TestFactory.sequence(<span class="hljs-string">'simpleSeq'</span>)(); <span class="hljs-comment">// =&gt; 2</span>
+  TestFactory.sequence(<span class="hljs-string">'simpleSeq'</span>).clear();
+  TestFactory.sequence(<span class="hljs-string">'simpleSeq'</span>)(); <span class="hljs-comment">// =&gt; 1</span>
+  TestFactory.sequence(<span class="hljs-string">'simpleSeq'</span>)(); <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testfactory-examples">TestFactory examples</h2>
+				<p>  <a href="examples/TestFactory">TestFactory examples</a></p>
+				<h2 id="testdummy-documentation">TestDummy documentation</h2>
+				<h3 id="filter-">filter:</h3>
+				<pre><code class="lang-javascript">  TestDummy.filter;
+</code></pre>
+				<p>  <code>filter</code> will return the simpliest filter. It&#39;s useful when filter is in another module.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  get filter() {
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">input</span>) </span>{
+      <span class="hljs-keyword">return</span> input;
+    };
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h3 id="directive-">directive:</h3>
+				<pre><code class="lang-javascript">  TestDummy.directive
+</code></pre>
+				<p>  <code>directive</code> will return the simpliest directive. It&#39;s useful when directive is in another module.</p>
+				<p>  Implementation:</p>
+				<pre><code class="lang-javascript">  get directive() {
+    <span class="hljs-keyword">return</span> [{ restrict: <span class="hljs-string">'AE'</span> }];
+  }
+</code></pre>
+				<p><strong><a href="#table-of-contents">Back to top</a></strong></p>
+				<h2 id="testdummy-examples">TestDummy examples</h2>
+				<p>  <a href="examples/TestDummy">TestDummy examples</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_d_.html">"index.d"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_typings_index_d_.html">"typings/index.d"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_typings_globals_angular_mocks_index_d_.html">"typings/globals/angular-<wbr>mocks/index.d"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_typings_globals_angular_index_d_.html">"typings/globals/angular/index.d"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_typings_globals_jquery_index_d_.html">"typings/globals/jquery/index.d"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.io" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
