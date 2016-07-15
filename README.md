@@ -83,6 +83,17 @@ All selectors are using native Javascript `querySelector` or `querySelectorAll`,
   ],
   ```
 
+  1. Or import directly from package
+
+  ```javascript
+  import { TestServ, TestElement } from 'angular-unit-testing-helpers';
+  ```
+
+  ```javascript
+  const TestServ = require('angular-unit-testing-helpers').TestServ;
+  const TestElement = require('angular-unit-testing-helpers').TestElement;
+  ```
+
 **[Back to top](#table-of-contents)**
 
 ## TypeScript:
