@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/dakolech/angular-unit-testing-helpers#readme",
   "devDependencies": {
-    "angular": "1.5.7",
-    "angular-mocks": "1.5.7",
+    "angular": "1.5.8",
+    "angular-mocks": "1.5.8",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.1",
     "karma-chrome-launcher": "^1.0.1",
