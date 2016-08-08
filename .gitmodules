@@ -1,0 +1,3 @@
+[submodule "angular-unit-testing-helpers"]
+	path = angular-unit-testing-helpers
+	url = https://github.com/dakolech/angular-unit-testing-helpers
