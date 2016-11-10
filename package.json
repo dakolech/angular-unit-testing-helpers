@@ -37,6 +37,6 @@
     "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs2-launcher": "^0.5.0",
     "typescript": "~2.0.6",
-    "typings": "^1.4.0"
+    "typings": "^2.0.0"
   }
 }
