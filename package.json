@@ -6,7 +6,7 @@
   "scripts": {
     "test:types": "./node_modules/typescript/bin/tsc --noEmit --listFiles",
     "test": "./node_modules/karma/bin/karma start",
-    "test-travis": "./node_modules/karma/bin/karma start --single-run --browsers=Chrome_travis_ci,Firefox,PhantomJS && npm run test:types"
+    "test-travis": "./node_modules/karma/bin/karma start --single-run --browsers=Chrome_travis_ci,Firefox,PhantomJS2 && npm run test:types"
   },
   "repository": {
     "type": "git",
