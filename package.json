@@ -29,8 +29,6 @@
   "devDependencies": {
     "angular": "1.6.3",
     "angular-mocks": "1.6.3",
-    "angular": "1.6.1",
-    "angular-mocks": "1.6.2",
     "jasmine-core": "^2.4.1",
     "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",
